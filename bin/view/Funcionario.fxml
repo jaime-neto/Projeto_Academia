@@ -3,6 +3,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FuncionarioController">
@@ -14,6 +19,15 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="644.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <Button layoutX="574.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnSalvar" text="Salvar" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="285.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/funcSalva.jpg" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="nome" alignment="TOP_CENTER" layoutX="169.0" layoutY="184.0" promptText="Nome" />
+                        <TextField fx:id="salario" alignment="TOP_CENTER" layoutX="169.0" layoutY="220.0" promptText="Salario" />
+                        <TextField fx:id="cpf" alignment="TOP_CENTER" layoutX="360.0" layoutY="184.0" promptText="CPF" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -22,6 +36,13 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="644.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="285.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/funcEdita.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="418.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
+                        <TextField fx:id="codFunc" alignment="TOP_CENTER" layoutX="241.0" layoutY="184.0" promptText="Codigo do Funcionario" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -29,7 +50,22 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="644.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <Button layoutX="455.0" layoutY="111.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <ImageView fitHeight="90.0" fitWidth="92.0" layoutX="315.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/funcBusca.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="386.0" layoutY="111.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
+                        <TextField fx:id="nome" alignment="TOP_CENTER" layoutX="209.0" layoutY="111.0" promptText="Nome" />
+                        <TableView fx:id="tvFunc" layoutX="5.0" layoutY="153.0" prefHeight="200.0" prefWidth="698.0">
+                          <columns>
+                            <TableColumn prefWidth="83.0" text="Codigo" />
+                            <TableColumn prefWidth="225.0" text="Nome" />
+                              <TableColumn prefWidth="120.0" text="Salario" />
+                              <TableColumn prefWidth="237.0" text="CPF" />
+                          </columns>
+                        </TableView>
                      </children></AnchorPane>
                </content>
             </Tab>
@@ -38,6 +74,13 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="644.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="285.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/funcRemove.jpg" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="429.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnExcluir" text="Excluir" />
+                        <TextField fx:id="codFunc" alignment="TOP_CENTER" layoutX="252.0" layoutY="184.0" promptText="Codigo do cliente" />
                      </children></AnchorPane>
                </content>
             </Tab>

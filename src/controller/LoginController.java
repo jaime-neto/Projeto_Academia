@@ -12,7 +12,7 @@ public class LoginController {
 
     @FXML
     private TextField usuario;
-	
+ 
 	@FXML
     void btnEntrar(ActionEvent event) {
 		application.Main.trocarTela("inicial");
