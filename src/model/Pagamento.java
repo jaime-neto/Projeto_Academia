@@ -3,8 +3,8 @@ package model;
 public class Pagamento {
 	protected int idPag;
 	protected String data;
-	protected int idCliente;
-	protected int idFunc;
+	protected Cliente idCliente;
+	protected Funcionario idFunc;
 	protected String tipo; //Se o pgmt é mensal, semestral ou promocional
 	
 	public int getIdPag() {
@@ -23,20 +23,20 @@ public class Pagamento {
 		this.data = data;
 	}
 	
-	public int getIdCliente() {
-		return idCliente;
+	public int getIdCli() {
+		return idCliente.getIdCliente();
 	}
 	
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setIdCli(int idCli) {
+		this.idCliente.setIdCliente(idCli);
 	}
 	
 	public int getIdFunc() {
-		return idFunc;
+		return idFunc.getIdFunc();
 	}
 	
 	public void setIdFunc(int idFunc) {
-		this.idFunc = idFunc;
+		this.idFunc.setIdFunc(idFunc);;
 	}
 	
 	public String getTipo() {

@@ -7,13 +7,6 @@ public class Cliente {
 	private String endereco;
 	private String telefone;
 	
-	public Cliente(String cpf, String nome, String endereco, String telefone) {
-		super();
-		this.cpf = cpf;
-		this.nome = nome;
-		this.endereco = endereco;
-		this.telefone = telefone;
-	}
 
 	public int getIdCliente() {
 		return idCliente;

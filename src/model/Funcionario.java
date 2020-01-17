@@ -7,14 +7,6 @@ public class Funcionario {
 	private String cpf;
 	private float salario;
 	
-	public Funcionario(String usuario, String senha, String cpf, float salario) {
-		super();
-		this.usuario = usuario;
-		this.senha = senha;
-		this.cpf = cpf;
-		this.salario = salario;
-	}
-	
 	public int getIdFunc() {
 		return idFunc;
 	}

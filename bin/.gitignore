@@ -1,4 +1,8 @@
+/DB/
+/application/
 /controller/
-/view/
 /icons/
-/cliente/
+/model/
+/view/
+/Connection/
+/connection/

@@ -48,28 +48,28 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="551.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
-                        <TextField fx:id="codCli" alignment="TOP_CENTER" layoutX="113.0" layoutY="158.0" promptText="Codigo Cliente" />
-                        <MenuButton fx:id="tipo" layoutX="305.0" layoutY="158.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Tipo">
+                        <Button layoutX="551.0" layoutY="149.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <TextField fx:id="codCli" alignment="TOP_CENTER" layoutX="113.0" layoutY="149.0" promptText="Codigo Cliente" />
+                        <MenuButton fx:id="tipo" layoutX="305.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Tipo">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Mensal" />
                             <MenuItem mnemonicParsing="false" text="Semestral" />
                               <MenuItem mnemonicParsing="false" text="Promocional" />
                           </items>
                         </MenuButton>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="285.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="135.0" fitWidth="136.0" layoutX="293.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../bin/icons/editarPag.png" />
                            </image>
                         </ImageView>
-                        <TableView fx:id="tvPgmt" layoutX="70.0" layoutY="195.0" prefHeight="172.0" prefWidth="580.0">
+                        <TableView fx:id="tvPgmt" layoutX="70.0" layoutY="186.0" prefHeight="172.0" prefWidth="580.0">
                           <columns>
                             <TableColumn fx:id="codCliente" prefWidth="75.0" text="Codigo" />
                             <TableColumn fx:id="nomeCli" prefWidth="282.0" text="Nome" />
                               <TableColumn fx:id="tipoPgmtCli" prefWidth="91.0" text="Tipo" />
                           </columns>
                         </TableView>
-                        <Button layoutX="483.0" layoutY="158.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
+                        <Button layoutX="483.0" layoutY="149.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
                      </children>
                   </AnchorPane>
             </content>
