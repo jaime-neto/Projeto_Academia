@@ -1,8 +1,5 @@
 /DB/
-/application/
-/controller/
-/icons/
+/test/
+/units/
+/tests/
 /model/
-/view/
-/Connection/
-/connection/

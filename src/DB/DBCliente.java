@@ -13,20 +13,24 @@ public class DBCliente {
 		con = (Connection) ConnectionFactory.getConnection();
 	}
 	
-	public boolean CadCliente(Cliente cliente) {
+	public boolean cadCliente(Cliente cliente) {
 		
 		PreparedStatement stmt = null;
-        String sql = "INSERT INTO cliente (nome ,cpf , endereco, telefone) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO cliente (nome ,cpf,telefone, id_end) VALUES (?,?,?,?)";
         try {
             stmt =  con.prepareStatement(sql);
 
-            stmt.setString(1, cliente.getCpf());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getEndereco());
-            stmt.setString(4, cliente.getTelefone());
-
-            stmt.executeUpdate(); //executar o sql r insere no DB
-            return true;
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getCpf());
+            stmt.setString(3, cliente.getTelefone());
+            stmt.setInt(4, cliente.getEndereco().getIdEndereco());
+            
+            int result = stmt.executeUpdate(); //executar o sql r insere no DB
+            if(result == 1) {
+            	return true;
+            } else {
+            	return false;
+            }
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
@@ -39,14 +43,14 @@ public class DBCliente {
 	public boolean editCliente(Cliente cliente) {
 		
 		PreparedStatement stmt = null;
-        String sql = "UPDATE cliente SET nome = ?,cpf = ? endereco = ?, telefone = ? WHERE idCliente = ?";
+        String sql = "UPDATE cliente SET nome = ?,cpf = ?, id_end = ?, telefone = ? WHERE id_cli = ?";
         
         try {
         	stmt = con.prepareStatement(sql);
 
-        	stmt.setString(1, cliente.getCpf());
-            stmt.setString(2, cliente.getNome());
-            stmt.setString(3, cliente.getEndereco());
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getCpf());
+            stmt.setInt(3, cliente.getEndereco().getIdEndereco());
             stmt.setString(4, cliente.getTelefone());
             
             stmt.setLong(5, cliente.getIdCliente());
@@ -64,7 +68,7 @@ public class DBCliente {
 	public boolean deleteCliente(Cliente cliente) {
 		
 		PreparedStatement stmt = null;
-        String sql = "DELETE cliente WHERE idCliente = ?";
+        String sql = "DELETE from cliente WHERE id_cli = ?";
         
         try {
         	stmt = con.prepareStatement(sql);
