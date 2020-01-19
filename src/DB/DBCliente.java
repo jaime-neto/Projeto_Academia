@@ -2,8 +2,11 @@ package DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Cliente;
+import model.Endereco;
+import model.Funcionario;
 
 public class DBCliente {
 	
@@ -83,6 +86,34 @@ public class DBCliente {
         } finally {
             ConnectionFactory.closeConnection((Connection) con, stmt);
         }
+		
+	}
+	
+	public Cliente buscaUltimoCliente() {
+		Cliente cli = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from cliente where id_cli = (SELECT max(id_cli) from cliente)";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	cli = new Cliente();
+            	cli.setIdCliente(rs.getInt("id_cli"));
+            	cli.setNome(rs.getString("nome"));
+            	cli.setCpf(rs.getString("cpf"));
+            	cli.setTelefone(rs.getString("telefone"));
+            	Endereco end = new Endereco();
+            	end.setIdEndereco(rs.getInt("id_end"));
+            	cli.setEndereco(end);
+            }
+
+            return cli;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
 		
 	}
 

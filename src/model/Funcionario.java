@@ -2,10 +2,19 @@ package model;
 
 public class Funcionario {
 	private int idFunc;
+	private String nome;
 	private String usuario;
 	private String senha;
 	private String cpf;
 	private float salario;
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 	public int getIdFunc() {
 		return idFunc;

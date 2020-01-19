@@ -2,7 +2,10 @@ package DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import model.Endereco;
 import model.Funcionario;
 
 public class DBFuncionario {
@@ -13,20 +16,21 @@ private Connection con = null;
 		con = (Connection) ConnectionFactory.getConnection();
 	}
 	
-public boolean CadFuncionario(Funcionario func) {
+public boolean cadFuncionario(Funcionario func) {
 		
 		PreparedStatement stmt = null;
-        String sql = "INSERT INTO funcionario (usuario ,senha , cpf, salario) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO funcionario (nome ,usuario ,senha , cpf, salario) VALUES (?,?,?,?,?)";
         try {
         	stmt =  con.prepareStatement(sql);
 
-            stmt.setString(1, func.getUsuario());
-            stmt.setString(2, func.getSenha());
-            stmt.setString(3, func.getCpf());
-            stmt.setFloat(4, func.getSalario());
+            stmt.setString(1, func.getNome());
+            stmt.setString(2, func.getUsuario());
+            stmt.setString(3, func.getSenha());
+            stmt.setString(4, func.getCpf());
+            stmt.setFloat(5, func.getSalario());
 
-            stmt.executeUpdate(); //executar o sql r insere no DB
-            return true;
+            int result = stmt.executeUpdate(); //executar o sql r insere no DB
+            return result == 1 ? true:false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
@@ -39,20 +43,21 @@ public boolean CadFuncionario(Funcionario func) {
 	public boolean editFuncionario(Funcionario func) {
 		
 		PreparedStatement stmt = null;
-        String sql = "UPDATE funcionario SET usuario = ?,senha = ? cpf = ?, salario = ? WHERE idFunc = ?";
+        String sql = "UPDATE funcionario SET nome = ?, usuario = ?,senha = ?, cpf = ?, salario = ? WHERE id_func = ?";
         
         try {
         	stmt = con.prepareStatement(sql);
-
-        	 stmt.setString(1, func.getUsuario());
-             stmt.setString(2, func.getSenha());
-             stmt.setString(3, func.getCpf());
-             stmt.setFloat(4, func.getSalario());
+        	 
+        	stmt.setString(1, func.getNome());
+        	 stmt.setString(2, func.getUsuario());
+             stmt.setString(3, func.getSenha());
+             stmt.setString(4, func.getCpf());
+             stmt.setFloat(5, func.getSalario());
             
-            stmt.setLong(5, func.getIdFunc());
+            stmt.setLong(6, func.getIdFunc());
 
-            stmt.executeUpdate(); //executar o sql
-            return true;
+            int result = stmt.executeUpdate(); //executar o sql
+            return result == 1 ? true:false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
@@ -64,15 +69,15 @@ public boolean CadFuncionario(Funcionario func) {
 	public boolean deleteFuncionario(Funcionario func) {
 		
 		PreparedStatement stmt = null;
-        String sql = "DELETE funcionario WHERE idFunc = ?";
+        String sql = "DELETE from funcionario WHERE id_func = ?";
         
         try {
         	stmt = con.prepareStatement(sql);
             
         	stmt.setLong(1, func.getIdFunc());
 
-            stmt.executeUpdate(); //executar o sql
-            return true;
+            int result = stmt.executeUpdate(); //executar o sql
+            return result == 1 ? true:false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
@@ -81,5 +86,33 @@ public boolean CadFuncionario(Funcionario func) {
         }
 		
 	}
+	
+	public Funcionario buscaUltimoFuncionario() {
+		Funcionario func = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from funcionario where id_func = (SELECT max(id_func) from funcionario)";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	func = new Funcionario();
+            	func.setIdFunc(rs.getInt("id_func"));
+            	func.setNome(rs.getString("nome"));
+            	func.setUsuario(rs.getString("usuario"));
+            	func.setSenha(rs.getString("senha"));
+            	func.setCpf(rs.getString("cpf"));
+            	func.setSalario(rs.getFloat("salario"));
+            }
+
+            return func;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
+	}
+
 
 }

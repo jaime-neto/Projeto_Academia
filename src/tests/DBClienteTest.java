@@ -9,6 +9,7 @@ import DB.DBCliente;
 import DB.DBEndereco;
 import model.Cliente;
 import model.Endereco;
+import model.Funcionario;
 
 class DBClienteTest {
 	DBCliente db_cli;
@@ -27,7 +28,7 @@ class DBClienteTest {
 		end = new Endereco();
 		end.setIdEndereco(db_end.buscaUltimoEndereco().getIdEndereco());
 		cli.setEndereco(end);
-		cli.setIdCliente(20);
+		cli.setIdCliente(db_cli.buscaUltimoCliente().getIdCliente());
 	}
 
 	@Test
@@ -36,12 +37,18 @@ class DBClienteTest {
 	}
 	
 	@Test
+	void edit_cli() {
+		assertEquals(true, db_cli.editCliente(cli));
+	}
+	
+	@Test
 	void del_cli() {
 		assertEquals(true, db_cli.deleteCliente(cli));
 	}
 	
+	
 	@Test
-	void edit_cli() {
-		assertEquals(true, db_cli.editCliente(cli));
+	void buscaUltimoCli() {
+		assertTrue(db_cli.buscaUltimoCliente() instanceof Cliente);
 	}
 }

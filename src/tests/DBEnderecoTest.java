@@ -20,7 +20,7 @@ class DBEnderecoTest {
 		end.setRua("Dos bobos");
 		end.setBairro("centro");
 		end.setCidade("Frutuoso Gomes");
-		end.setIdEndereco(15);
+		end.setIdEndereco(db_end.buscaUltimoEndereco().getIdEndereco());
 	}
 
 	@Test
@@ -30,12 +30,13 @@ class DBEnderecoTest {
 	
 	@Test
 	void edit_end() {
-		//end.setIdEndereco(db_end.buscaUltimoEndereco().getIdEndereco());
+		
 		assertEquals(true, db_end.editEndereco(end));
 	}
 	
 	@Test
 	void del_end() {
+		
 		assertEquals(true, db_end.deleteEndereco(end));
 	}
 	
