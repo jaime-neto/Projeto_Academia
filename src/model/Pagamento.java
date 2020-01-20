@@ -1,49 +1,43 @@
 package model;
 
+import java.util.Calendar;
+
 public class Pagamento {
 	protected int idPag;
-	protected String data;
+	protected Calendar data;
 	protected Cliente idCliente;
 	protected Funcionario idFunc;
 	protected String tipo; //Se o pgmt é mensal, semestral ou promocional
-	
 	public int getIdPag() {
 		return idPag;
 	}
-	
 	public void setIdPag(int idPag) {
 		this.idPag = idPag;
 	}
-	
-	public String getData() {
+	public Calendar getData() {
 		return data;
 	}
-	
-	public void setData(String data) {
+	public void setData(Calendar data) {
 		this.data = data;
 	}
-	
-	public int getIdCli() {
-		return idCliente.getIdCliente();
+	public Cliente getIdCliente() {
+		return idCliente;
 	}
-	
-	public void setIdCli(int idCli) {
-		this.idCliente.setIdCliente(idCli);
+	public void setIdCliente(Cliente idCliente) {
+		this.idCliente = idCliente;
 	}
-	
-	public int getIdFunc() {
-		return idFunc.getIdFunc();
+	public Funcionario getIdFunc() {
+		return idFunc;
 	}
-	
-	public void setIdFunc(int idFunc) {
-		this.idFunc.setIdFunc(idFunc);;
+	public void setIdFunc(Funcionario idFunc) {
+		this.idFunc = idFunc;
 	}
-	
 	public String getTipo() {
 		return tipo;
 	}
-	
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+
 }

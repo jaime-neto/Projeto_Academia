@@ -32,6 +32,7 @@ create TABLE funcionario (
 create TABLE pagamento (
 	id_pag SERIAL, 
 	data DATE,
+	tipo VARCHAR(150),
 	id_func INT NOT NULL,
 	id_cli INT NOT NULL,
 	PRIMARY KEY (id_pag),

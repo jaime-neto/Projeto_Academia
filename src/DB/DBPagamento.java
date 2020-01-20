@@ -1,10 +1,12 @@
 package DB;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import model.Pagamento;
 
@@ -19,18 +21,18 @@ public class DBPagamento {
 	
 	public boolean realizarPagamento(Pagamento pagamento) {
 		PreparedStatement stmt = null;
-        String sql = "INSERT INTO pagamento (data ,idCliente , idFunc, tipo) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO pagamento (data ,tipo, id_func , id_cli) VALUES (?,?,?,?)";
         
         try {
             stmt =  con.prepareStatement(sql);
 
-            stmt.setString(1, pagamento.getData());
-            stmt.setLong(2, pagamento.getIdCli());
-            stmt.setLong(3, pagamento.getIdFunc());
-            stmt.setString(4, pagamento.getTipo());
+            stmt.setDate(1, (java.sql.Date)  new Date(Calendar.getInstance().getTime().getTime()));
+            stmt.setString(2, pagamento.getTipo());
+            stmt.setInt(3, pagamento.getIdFunc().getIdFunc());
+            stmt.setInt(4, pagamento.getIdCliente().getIdCliente());
 
-            stmt.executeUpdate(); //executar o sql r insere no DB
-            return true;
+            int result  = stmt.executeUpdate(); //executar o sql r insere no DB
+            return result == 1 ? true: false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
@@ -42,18 +44,17 @@ public class DBPagamento {
 	public boolean editPagamento(Pagamento pagamento) {
 		
 		PreparedStatement stmt = null;
-        String sql = "UPDATE pagamento SET idCliente = ?, tipo = ? WHERE idPag = ?" ;
+        String sql = "UPDATE pagamento SET id_cli = ?, tipo = ? WHERE id_pag = ?" ;
         
         try {
             stmt =  con.prepareStatement(sql);
 
-            stmt.setLong(1, pagamento.getIdCli());
+            stmt.setLong(1, pagamento.getIdCliente().getIdCliente());
             stmt.setString(2, pagamento.getTipo());
-            
             stmt.setLong(3, pagamento.getIdPag());
 
-            stmt.executeUpdate(); //executar o sql
-            return true;
+            int result = stmt.executeUpdate(); //executar o sql
+            return result == 1 ? true: false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
@@ -65,12 +66,12 @@ public class DBPagamento {
 	public boolean deletePagamento(Pagamento pagamento) {
 		
 		PreparedStatement stmt = null;
-        String sql = "DELETE pagamento WHERE idPag = ?" ;
+        String sql = "DELETE from pagamento WHERE id_cli = ?" ;
         
         try {
             stmt =  con.prepareStatement(sql);
             
-            stmt.setLong(1, pagamento.getIdPag());
+            stmt.setLong(1, pagamento.getIdCliente().getIdCliente());
 
             stmt.executeUpdate(); //executar o sql
             return true;
@@ -97,9 +98,9 @@ public class DBPagamento {
                 Pagamento pagamento = new Pagamento();
 
                 pagamento.setIdPag(rs.getInt("idPag"));
-                pagamento.setIdCli(rs.getInt("idCliente"));
-                pagamento.setData(rs.getString("data"));
-                pagamento.setIdFunc(rs.getInt("idFunc"));
+             //   pagamento.setIdCli(rs.getInt("idCliente"));
+                //pagamento.setData(rs.getString("data"));
+               // pagamento.setIdFunc(rs.getInt("idFunc"));
                 pagamento.setTipo(rs.getString("tipo"));
 
                 pagamentos.add(pagamento);
