@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import model.Cliente;
 import model.Endereco;
 import model.Funcionario;
 
@@ -113,6 +115,62 @@ public boolean cadFuncionario(Funcionario func) {
         } 
 		
 	}
+	
+	public Funcionario buscaFuncionario(Funcionario idFunc) {
+		Funcionario func = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from funcionario where id_func = ?";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+        		
+        	stmt.setLong(1, idFunc.getIdFunc());
+        	
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	func = new Funcionario();
+            	func.setIdFunc(rs.getInt("id_func"));
+            	func.setNome(rs.getString("nome"));
+            	func.setUsuario(rs.getString("usuario"));
+            	func.setSenha(rs.getString("senha"));
+            	func.setCpf(rs.getString("cpf"));
+            	func.setSalario(rs.getFloat("salario"));
+            }
 
+            return func;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
+	}
+	
+	public ArrayList<Funcionario> buscarTodosFuncionarios() {
+		ArrayList funcionarios = new ArrayList<Funcionario>(); 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from funcionario";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	Funcionario func = new Funcionario();
+            	func.setIdFunc(rs.getInt("id_func"));
+            	func.setNome(rs.getString("nome"));
+            	func.setCpf(rs.getString("cpf"));
+            	func.setNome(rs.getString("nome"));
+            	func.setSenha(rs.getString("senha"));
+            	func.setSalario(rs.getFloat("salario"));
+            	funcionarios.add(func);
+            }
 
+            return funcionarios;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
+	}
 }

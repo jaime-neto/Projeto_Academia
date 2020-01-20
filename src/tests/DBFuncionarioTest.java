@@ -2,6 +2,9 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +15,18 @@ import model.Funcionario;
 class DBFuncionarioTest {
 	DBFuncionario db_func = null;
 	Funcionario func = null;
+	
+	@BeforeAll
+	static void setMock() {
+		DBFuncionario db_funcMock = new DBFuncionario();
+		Funcionario funcMock = new Funcionario();
+		funcMock.setNome("Joseph");
+		funcMock.setCpf("70318248878");
+		funcMock.setUsuario("josephFunc");
+		funcMock.setSenha("12345");
+		funcMock.setSalario(1000);
+		db_funcMock.cadFuncionario(funcMock);
+	}
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -26,19 +41,18 @@ class DBFuncionarioTest {
 	}
 
 	@Test
-	void cad_func() {
+	void cadFunc() {
 		assertEquals(true, db_func.cadFuncionario(func));
 	}
 	
 	@Test
-	void edit_func() {
+	void editFunc() {
 		func.setNome("John");
-		
 		assertEquals(true, db_func.editFuncionario(func));
 	}
 	
 	@Test
-	void delete_func() {
+	void deleteFunc() {
 		//func.setIdFunc(db_func.buscaUltimoFuncionario().getIdFunc());
 		assertEquals(true, db_func.deleteFuncionario(func));
 	}
@@ -46,6 +60,17 @@ class DBFuncionarioTest {
 	@Test
 	void buscaUltimoFunc() {
 		assertTrue(db_func.buscaUltimoFuncionario() instanceof Funcionario);
+	}
+	
+	@Test
+	void buscarTodosFunc() {
+		assertTrue(db_func.buscarTodosFuncionarios() instanceof ArrayList<?>);
+		assertTrue(db_func.buscarTodosFuncionarios().size() > 0);
+	}
+	
+	@Test
+	void buscaFuncionario() {
+		assertTrue(db_func.buscaFuncionario(func) instanceof Funcionario);
 	}
 
 }

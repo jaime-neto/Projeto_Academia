@@ -108,5 +108,33 @@ private Connection con = null;
 	        }
 			
 		}
+	
+	public Endereco buscaEndereco(Endereco end) {
+		Endereco endResult = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from endereco where id_end = ?";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+
+        	
+            stmt.setInt(1, end.getIdEndereco());
+
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	endResult = new Endereco();
+            	endResult.setIdEndereco(rs.getInt("id_end"));
+            	endResult.setRua(rs.getString("rua"));
+            	endResult.setBairro(rs.getString("bairro"));
+            	endResult.setCidade(rs.getString("cidade"));
+            }
+            
+            return endResult;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+	}
 
 }

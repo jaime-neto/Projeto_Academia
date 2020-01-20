@@ -3,6 +3,7 @@ package tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +13,16 @@ import model.Endereco;
 class DBEnderecoTest {
 	DBEndereco db_end = null;
 	Endereco end = null;
+	
+	@BeforeAll
+	static void setMock() throws Exception {
+		DBEndereco bdMock = new DBEndereco();
+		Endereco endMock = new Endereco();
+		endMock.setRua("dos bobos");
+		endMock.setBairro("centro");
+		endMock.setCidade("por ai");
+		bdMock.cadEndereco(endMock);
+	}
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -24,25 +35,28 @@ class DBEnderecoTest {
 	}
 
 	@Test
-	void cad_end() {
+	void cadEnd() {
 		assertEquals(true, db_end.cadEndereco(end));
 	}
 	
 	@Test
-	void edit_end() {
-		
+	void editEnd() {
 		assertEquals(true, db_end.editEndereco(end));
 	}
 	
 	@Test
-	void del_end() {
-		
+	void delEnd() {
 		assertEquals(true, db_end.deleteEndereco(end));
 	}
 	
 	@Test
 	void buscaUltimo() {
 		assertTrue(db_end.buscaUltimoEndereco() instanceof Endereco);
+	}
+	
+	@Test
+	void buscaEnd() {
+		assertTrue(db_end.buscaEndereco(end) instanceof Endereco);
 	}
 	
 }

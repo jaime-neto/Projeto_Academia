@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import model.Cliente;
 import model.Endereco;
 import model.Funcionario;
@@ -105,11 +107,78 @@ public class DBCliente {
             	cli.setCpf(rs.getString("cpf"));
             	cli.setTelefone(rs.getString("telefone"));
             	Endereco end = new Endereco();
+            	DBEndereco db_end = new DBEndereco();
+            	//db_end.
             	end.setIdEndereco(rs.getInt("id_end"));
             	cli.setEndereco(end);
             }
 
             return cli;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
+	}
+	
+	public Cliente buscaCliente(Cliente idCliente) {
+		Cliente cli = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from cliente where id_cli = ?";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+        	
+        	stmt.setInt(1, idCliente.getIdCliente());
+        	
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	cli = new Cliente();
+            	cli.setIdCliente(rs.getInt("id_cli"));
+            	cli.setNome(rs.getString("nome"));
+            	cli.setCpf(rs.getString("cpf"));
+            	cli.setTelefone(rs.getString("telefone"));
+            	Endereco end = new Endereco();
+            	DBEndereco db_end = new DBEndereco();
+            	end.setIdEndereco(rs.getInt("id_end"));
+            	cli.setEndereco(db_end.buscaEndereco(end));
+            }
+
+            return cli;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
+	}
+	
+	public ArrayList<Cliente> buscarTodosClientes() {
+		ArrayList clientes = new ArrayList<Cliente>(); 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from cliente";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	Cliente cli = new Cliente();
+            	cli.setIdCliente(rs.getInt("id_cli"));
+            	cli.setNome(rs.getString("nome"));
+            	cli.setCpf(rs.getString("cpf"));
+            	cli.setTelefone(rs.getString("telefone"));
+            	
+            	Endereco end = new Endereco();
+            	DBEndereco bd_end = new DBEndereco();
+            	end.setIdEndereco(rs.getInt("id_end"));
+            	end = bd_end.buscaEndereco(end);
+            	
+            	cli.setEndereco(end);
+            	clientes.add(cli);
+            }
+
+            return clientes;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return null;

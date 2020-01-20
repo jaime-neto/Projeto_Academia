@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import model.Endereco;
+import model.Funcionario;
 import model.Pagamento;
 
 public class DBPagamento {
@@ -82,6 +85,39 @@ public class DBPagamento {
             ConnectionFactory.closeConnection((Connection) con, stmt);
         }
         
+	}
+	
+	public Pagamento buscaUltimoPagamento() {
+		Pagamento pag = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from pagamento where id_pag = (SELECT max(id_pag) from pagamento)";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	pag = new Pagamento();
+            	Calendar cal = Calendar.getInstance();
+            	cal.setTime(rs.getDate("data"));
+            	pag.setData(cal);
+            	pag.setTipo(rs.getString("tipo"));
+            	pag.setIdPag(rs.getInt("id_pag"));
+            	//buscar Funcionario no BD
+            	Funcionario func =  new Funcionario();
+            	func.setIdFunc(rs.getInt("id_func"));
+            	DBFuncionario db_func = new DBFuncionario();
+            	pag.setIdFunc(db_func.buscaFuncionario(func));
+            	//Buscar Cliente no BD
+            	//	pag.setCidade(rs.getString("cidade"));
+            }
+            
+            return pag;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        }
+		
 	}
 	
 	public List<Pagamento> listaPagamentos() {
