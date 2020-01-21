@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import model.Cliente;
 import model.Endereco;
-import model.Funcionario;
 
 public class DBCliente {
 	
@@ -154,7 +153,7 @@ public class DBCliente {
 	}
 	
 	public ArrayList<Cliente> buscarTodosClientes() {
-		ArrayList clientes = new ArrayList<Cliente>(); 
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>(); 
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
         String sql = "SELECT * from cliente";

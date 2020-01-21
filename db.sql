@@ -2,17 +2,17 @@ create database gymapp;
 
 create TABLE endereco (
 	id_end SERIAl,
-  	rua VARCHAR(150),
-  	bairro VARCHAR(120),
-  	cidade VARCHAR(120),
+  	rua VARCHAR(150) NOT NULL,
+  	bairro VARCHAR(120) NOT NULL,
+  	cidade VARCHAR(120) NOT NULL,
   	PRIMARY KEY (id_end)
 );
 
 create table cliente (
 	id_cli SERIAL,
-  	nome VARCHAR(150),
-  	cpf VARCHAR(12),
-	telefone VARCHAR(12),
+  	nome VARCHAR(150) NOT NULL,
+  	cpf VARCHAR(12) NOT NULL,
+	telefone VARCHAR(12) NOT NULL,
   	id_end INT NOT NULL,
   	PRIMARY KEY (id_cli),
   	FOREIGN KEY (id_end) REFERENCES endereco (id_end)
@@ -21,18 +21,18 @@ create table cliente (
 
 create TABLE funcionario (
 	id_func SERIAL, 
-	nome VARCHAR(150),
-	usuario VARCHAR(150),
-	senha VARCHAR(150),
-	cpf VARCHAR(12),
-	salario FLOAT, 
+	nome VARCHAR(150) NOT NULL,
+	usuario VARCHAR(150) NOT NULL,
+	senha VARCHAR(150) NOT NULL,
+	cpf VARCHAR(12) NOT NULL,
+	salario FLOAT NOT NULL, 
 	PRIMARY KEY (id_func)
 );
 
 create TABLE pagamento (
 	id_pag SERIAL, 
-	data DATE,
-	tipo VARCHAR(150),
+	data DATE NOT NULL,
+	tipo VARCHAR(150) NOT NULL,
 	id_func INT NOT NULL,
 	id_cli INT NOT NULL,
 	PRIMARY KEY (id_pag),

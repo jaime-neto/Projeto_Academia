@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.Cliente;
-import model.Endereco;
 import model.Funcionario;
 
 public class DBFuncionario {
@@ -19,7 +17,7 @@ private Connection con = null;
 	}
 	
 public boolean cadFuncionario(Funcionario func) {
-		
+			
 		PreparedStatement stmt = null;
         String sql = "INSERT INTO funcionario (nome ,usuario ,senha , cpf, salario) VALUES (?,?,?,?,?)";
         try {
@@ -147,7 +145,7 @@ public boolean cadFuncionario(Funcionario func) {
 	}
 	
 	public ArrayList<Funcionario> buscarTodosFuncionarios() {
-		ArrayList funcionarios = new ArrayList<Funcionario>(); 
+		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>(); 
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
         String sql = "SELECT * from funcionario";
@@ -165,7 +163,7 @@ public boolean cadFuncionario(Funcionario func) {
             	func.setSalario(rs.getFloat("salario"));
             	funcionarios.add(func);
             }
-
+            
             return funcionarios;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());

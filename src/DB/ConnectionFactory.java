@@ -11,10 +11,10 @@ import javax.swing.JOptionPane;
 public class ConnectionFactory {
 
 		
-		//Alterando localização do jdbc. Localização do diretorio do banco dentro da aplicação.
+		//Alterando localizaï¿½ï¿½o do jdbc. Localizaï¿½ï¿½o do diretorio do banco dentro da aplicaï¿½ï¿½o.
 	    private static  final String DRIVER = "org.postgresql.jdbc";
 	    //private static final String URL = "jdbc:postgresql://localhost/gymapp";
-	    private static final String URL = "jdbc:postgresql://192.168.99.100:5432/gymapp?user=admin&password=admin"; //pc-jadson
+	    private static final String URL = "jdbc:postgresql://localhost/gymapp?user=postgres&password=postgres"; //pc-jaime
 	    
 	    //private static final String USER = "admin";//login
 	    //private static final String PASS = "admin";//senha
@@ -22,6 +22,7 @@ public class ConnectionFactory {
 	    public static Connection getConnection(){
 	        try {
 	            //Class.forName(DRIVER); //talvez precise
+	        	System.out.println("ConexÃ£o com o Postgres realizada.");
 	            return  DriverManager.getConnection(URL);
 
 	        } catch (SQLException ex) {
@@ -55,6 +56,7 @@ public class ConnectionFactory {
 	        closeConnection(con,stmt);   
 	        try {
 	          if(rs!=null){
+	        	  System.out.println("ConexÃ£o com o Postgres finalizada.");
 	              rs.close();
 	          }
 	         } catch (SQLException ex) {

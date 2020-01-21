@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import model.Endereco;
 import model.Funcionario;
 import model.Pagamento;
 

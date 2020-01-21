@@ -25,9 +25,11 @@
                               <Image url="@../icons/funcSalva.jpg" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="nome" alignment="TOP_CENTER" layoutX="169.0" layoutY="184.0" promptText="Nome" />
                         <TextField fx:id="salario" alignment="TOP_CENTER" layoutX="169.0" layoutY="220.0" promptText="Salario" />
                         <TextField fx:id="cpf" alignment="TOP_CENTER" layoutX="360.0" layoutY="184.0" promptText="CPF" />
+                        <TextField fx:id="user" alignment="TOP_CENTER" layoutX="360.0" layoutY="220.0" promptText="Usuario" />
+                        <TextField fx:id="senha" alignment="TOP_CENTER" layoutX="169.0" layoutY="254.0" promptText="Senha" />
+                        <TextField fx:id="cadNome" alignment="TOP_CENTER" layoutX="169.0" layoutY="184.0" promptText="Nome" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -50,22 +52,23 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="455.0" layoutY="111.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <Button layoutX="509.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
                         <ImageView fitHeight="90.0" fitWidth="92.0" layoutX="315.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/funcBusca.jpg" />
                            </image>
                         </ImageView>
-                        <Button layoutX="386.0" layoutY="111.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
-                        <TextField fx:id="nome" alignment="TOP_CENTER" layoutX="209.0" layoutY="111.0" promptText="Nome" />
+                        <Button layoutX="440.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
+                        <TextField fx:id="buscCod" alignment="TOP_CENTER" layoutX="263.0" layoutY="110.0" promptText="Codigo do funcionario" />
                         <TableView fx:id="tvFunc" layoutX="5.0" layoutY="153.0" prefHeight="200.0" prefWidth="698.0">
                           <columns>
-                            <TableColumn prefWidth="83.0" text="Codigo" />
-                            <TableColumn prefWidth="225.0" text="Nome" />
-                              <TableColumn prefWidth="120.0" text="Salario" />
-                              <TableColumn prefWidth="237.0" text="CPF" />
+                            <TableColumn fx:id="tcCod" prefWidth="83.0" text="Codigo" />
+                            <TableColumn fx:id="tcNome" prefWidth="225.0" text="Nome" />
+                              <TableColumn fx:id="tcSalario" prefWidth="120.0" text="Salario" />
+                              <TableColumn fx:id="tcCpf" prefWidth="237.0" text="CPF" />
                           </columns>
                         </TableView>
+                        <Button layoutX="154.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnBuscarTodos" text="Buscar todos" />
                      </children></AnchorPane>
                </content>
             </Tab>
@@ -80,7 +83,7 @@
                            </image>
                         </ImageView>
                         <Button layoutX="429.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnExcluir" text="Excluir" />
-                        <TextField fx:id="codFunc" alignment="TOP_CENTER" layoutX="252.0" layoutY="184.0" promptText="Codigo do cliente" />
+                        <TextField fx:id="codFunc" alignment="TOP_CENTER" layoutX="252.0" layoutY="184.0" promptText="Codigo do funcionario" />
                      </children></AnchorPane>
                </content>
             </Tab>

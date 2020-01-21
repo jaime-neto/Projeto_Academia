@@ -8,6 +8,19 @@ public class Funcionario {
 	private String cpf;
 	private float salario;
 	
+	public Funcionario(String nome, String usuario, String senha, String cpf, float salario) {
+		super();
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.cpf = cpf;
+		this.salario = salario;
+	}
+
+	public Funcionario() {
+		
+	}
+	
 	public String getNome() {
 		return nome;
 	}

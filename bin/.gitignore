@@ -1,5 +1,7 @@
 /DB/
-/test/
-/units/
-/tests/
+/application/
+/controller/
+/icons/
 /model/
+/tests/
+/view/
