@@ -22,6 +22,7 @@ class DBClienteTest {
 	Cliente cli;
 	Endereco end;
 	
+	//Testar Endereco primeiro
 	@BeforeAll
 	static void setMock() throws Exception {
 		DBCliente bdMock = new DBCliente();

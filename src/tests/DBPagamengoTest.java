@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +33,7 @@ class DBPagamengoTest {
 
 		DBFuncionario db_funcMock = new DBFuncionario();
 		Funcionario f = new Funcionario();
-		f.setIdFunc(10);
+		f.setIdFunc(db_funcMock.buscaUltimoFuncionario().getIdFunc());
 		pagMock.setIdFunc(f);
 		
 		bdMock.realizarPagamento(pagMock);
@@ -45,13 +47,14 @@ class DBPagamengoTest {
 		
 		DBCliente db_cli = new DBCliente();
 		Cliente c = new Cliente();
-		c.setIdCliente(38);
+		c.setIdCliente(db_cli.buscaUltimoCliente().getIdCliente());
 		pag.setIdCliente(c);
 
 		DBFuncionario db_func = new DBFuncionario();
 		Funcionario f = new Funcionario();
-		f.setIdFunc(10);
+		f.setIdFunc(db_func.buscaUltimoFuncionario().getIdFunc());
 		pag.setIdFunc(f);
+		pag.setIdPag(db_pag.buscaUltimoPagamento().getIdPag());
 	}
 
 	@Test
@@ -69,9 +72,14 @@ class DBPagamengoTest {
 		assertEquals(true, db_pag.deletePagamento(pag));
 	}
 	
-	@Test 
+	@Test
 	void buscaUltimoPag() {
 		assertTrue(db_pag.buscaUltimoPagamento() instanceof Pagamento);
+	}
+	
+	@Test
+	void buscaTodosPag() {
+		assertTrue(db_pag.buscarTodosPagamentos() instanceof ArrayList<?>);
 	}
 
 }

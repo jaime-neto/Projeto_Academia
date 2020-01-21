@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import model.Cliente;
 import model.Funcionario;
 import model.Pagamento;
 
@@ -119,11 +120,13 @@ public class DBPagamento {
 		
 	}
 	
-	public List<Pagamento> listaPagamentos() {
+	public List<Pagamento> buscarTodosPagamentos() {
 		
 		List<Pagamento> pagamentos = new ArrayList<>();
 		PreparedStatement stmt = null;
         ResultSet rs = null;
+        DBCliente db_cli =  new DBCliente();
+        DBFuncionario db_func = new DBFuncionario();
         
         try {
             stmt = con.prepareStatement("SELECT * FROM pagamento");
@@ -132,10 +135,21 @@ public class DBPagamento {
             while (rs.next()) {
                 Pagamento pagamento = new Pagamento();
 
-                pagamento.setIdPag(rs.getInt("idPag"));
-             //   pagamento.setIdCli(rs.getInt("idCliente"));
-                //pagamento.setData(rs.getString("data"));
-               // pagamento.setIdFunc(rs.getInt("idFunc"));
+                pagamento.setIdPag(rs.getInt("id_pag"));
+
+                Cliente cli = new Cliente();
+                cli.setIdCliente(rs.getInt("id_cli"));
+                pagamento.setIdCliente(db_cli.buscaCliente(cli));
+                
+                Funcionario func = new Funcionario();
+                func.setIdFunc(rs.getInt("id_func"));
+                pagamento.setIdFunc(db_func.buscaFuncionario(func));
+                
+                Calendar cal = Calendar.getInstance();
+                Date data = new Date(rs.getDate("data").getTime());
+                cal.setTime(data);
+                pagamento.setData(cal);
+                
                 pagamento.setTipo(rs.getString("tipo"));
 
                 pagamentos.add(pagamento);

@@ -86,7 +86,7 @@ public class FuncionarioController {
 				funcionarios.add(func);
 				initTable();
 			}else {
-				JOptionPane.showMessageDialog(null, "Funcionario não encontrado.");
+				JOptionPane.showMessageDialog(null, "Funcionario nao encontrado.");
 			}
 			
 		}catch(Exception ex) {
@@ -126,7 +126,7 @@ public class FuncionarioController {
 			if(DBfunc.deleteFuncionario(func)) {
 				JOptionPane.showMessageDialog(null, "Funcionario deletado com sucesso");
 			}else {
-				JOptionPane.showMessageDialog(null, "Funcionario não encontrado.");
+				JOptionPane.showMessageDialog(null, "Funcionario nao encontrado.");
 			}
 			
 		}catch(Exception ex) {
@@ -147,7 +147,7 @@ public class FuncionarioController {
 			if(DBfunc.cadFuncionario(func)) {
 				JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
 			}else {
-				JOptionPane.showMessageDialog(null, "Funcionario não foi inserido.");
+				JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
 			}
 			limparCampos();
 			
