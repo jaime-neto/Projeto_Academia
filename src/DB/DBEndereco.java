@@ -34,9 +34,7 @@ private Connection con = null;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
-        } finally {
-            ConnectionFactory.closeConnection((Connection) con, stmt);
-        }
+        } 
 		
 	}
 	

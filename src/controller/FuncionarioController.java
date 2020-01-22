@@ -75,7 +75,7 @@ public class FuncionarioController {
 	
 	@FXML
 	void btnBuscar(ActionEvent event) {
-		
+		limparCampos();
 		Funcionario func = new Funcionario();
 		DBFuncionario DBfunc = new DBFuncionario();
 		
@@ -96,6 +96,7 @@ public class FuncionarioController {
 
 	@FXML
 	void btnBuscarTodos(ActionEvent event) {
+		limparCampos();
 		ArrayList<?> todosFunc;
 		DBFuncionario DBfunc = new DBFuncionario();
 		
@@ -125,6 +126,7 @@ public class FuncionarioController {
 			DBFuncionario DBfunc = new DBFuncionario();
 			if(DBfunc.deleteFuncionario(func)) {
 				JOptionPane.showMessageDialog(null, "Funcionario deletado com sucesso");
+				limparCampos();
 			}else {
 				JOptionPane.showMessageDialog(null, "Funcionario nao encontrado.");
 			}

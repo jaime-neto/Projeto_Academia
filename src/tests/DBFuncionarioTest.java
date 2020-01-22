@@ -53,7 +53,6 @@ class DBFuncionarioTest {
 	
 	@Test
 	void deleteFunc() {
-		//func.setIdFunc(db_func.buscaUltimoFuncionario().getIdFunc());
 		assertEquals(true, db_func.deleteFuncionario(func));
 	}
 	

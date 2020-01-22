@@ -107,8 +107,8 @@ public class DBCliente {
             	cli.setTelefone(rs.getString("telefone"));
             	Endereco end = new Endereco();
             	DBEndereco db_end = new DBEndereco();
-            	//db_end.
             	end.setIdEndereco(rs.getInt("id_end"));
+            	end = db_end.buscaEndereco(end);
             	cli.setEndereco(end);
             }
 

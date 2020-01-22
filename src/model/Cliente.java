@@ -7,7 +7,17 @@ public class Cliente {
 	private Endereco endereco;
 	private String telefone;
 	
-
+	public Cliente() {
+		
+	}
+	
+	public Cliente(String cpf, String nome, Endereco endereco, String telefone) {
+		this.cpf = cpf;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.telefone = telefone;
+	}
+	
 	public int getIdCliente() {
 		return idCliente;
 	}
