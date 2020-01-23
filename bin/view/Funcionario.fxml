@@ -43,8 +43,14 @@
                               <Image url="@../icons/funcEdita.jpg" />
                            </image>
                         </ImageView>
-                        <Button layoutX="418.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnBuscar" text="Buscar" />
-                        <TextField fx:id="codFunc" alignment="TOP_CENTER" layoutX="241.0" layoutY="184.0" promptText="Codigo do Funcionario" />
+                        <Button layoutX="418.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnBuscarEditar" text="Buscar" />
+                        <TextField fx:id="codFuncEditar" alignment="TOP_CENTER" layoutX="241.0" layoutY="184.0" promptText="Codigo do Funcionario" />
+                        <TextField fx:id="cpfEditar" alignment="TOP_CENTER" layoutX="360.0" layoutY="220.0" promptText="CPF" />
+                        <TextField fx:id="cadNomeEdita" alignment="TOP_CENTER" layoutX="169.0" layoutY="220.0" promptText="Nome" />
+                        <TextField fx:id="salarioEditar" alignment="TOP_CENTER" layoutX="169.0" layoutY="256.0" promptText="Salario" />
+                        <TextField fx:id="userEditar" alignment="TOP_CENTER" layoutX="169.0" layoutY="292.0" promptText="Usuario" />
+                        <TextField fx:id="senhaEditar" alignment="TOP_CENTER" layoutX="361.0" layoutY="255.0" promptText="Senha" />
+                        <Button layoutX="418.0" layoutY="292.0" mnemonicParsing="false" onAction="#btnEditar" prefHeight="26.0" prefWidth="63.0" text="Editar" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -83,7 +89,7 @@
                            </image>
                         </ImageView>
                         <Button layoutX="429.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnExcluir" text="Excluir" />
-                        <TextField fx:id="codFunc" alignment="TOP_CENTER" layoutX="252.0" layoutY="184.0" promptText="Codigo do funcionario" />
+                        <TextField fx:id="codFuncExcluir" alignment="TOP_CENTER" layoutX="252.0" layoutY="184.0" promptText="Codigo do funcionario" />
                      </children></AnchorPane>
                </content>
             </Tab>

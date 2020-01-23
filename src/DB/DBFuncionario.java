@@ -49,10 +49,10 @@ public boolean cadFuncionario(Funcionario func) {
         	stmt = con.prepareStatement(sql);
         	 
         	stmt.setString(1, func.getNome());
-        	 stmt.setString(2, func.getUsuario());
-             stmt.setString(3, func.getSenha());
-             stmt.setString(4, func.getCpf());
-             stmt.setFloat(5, func.getSalario());
+        	stmt.setString(2, func.getUsuario());
+            stmt.setString(3, func.getSenha());
+            stmt.setString(4, func.getCpf());
+            stmt.setFloat(5, func.getSalario());
             
             stmt.setLong(6, func.getIdFunc());
 
