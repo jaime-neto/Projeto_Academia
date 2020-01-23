@@ -1,16 +1,23 @@
 package controller;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import DB.DBCliente;
 import DB.DBEndereco;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Cliente;
 import model.Endereco;
+import model.Funcionario;
 
 public class ClienteController {
 	
@@ -39,7 +46,7 @@ public class ClienteController {
     private TextField codCli;
 
     @FXML
-    private TableView<?> tvCliente;
+    private TableView<Cliente> tvCliente;
 
     @FXML
     private Label statusExcluir;
@@ -65,6 +72,29 @@ public class ClienteController {
     @FXML
     private TextField cidadeEdit;
     
+    @FXML
+	private TableColumn<Cliente, String> tcCodCli;
+    
+    @FXML
+	private TableColumn<Cliente, String> tcNomeCli;
+    
+    @FXML
+	private TableColumn<Cliente, String> tcTelCli;
+    
+    @FXML
+	private TableColumn<Cliente, String> tcCpfCli;
+    
+    @FXML
+	private TableColumn<Cliente, String> tcRuaCli;
+    
+    @FXML
+	private TableColumn<Cliente, String> tcBairroCli;
+    
+    @FXML
+	private TableColumn<Cliente, String> tcCidadeCli;
+    
+    private ObservableList<Cliente> clientes = FXCollections.observableArrayList();
+    
     private Endereco endTemp = null;
     
     private void limparCampos() {
@@ -83,6 +113,15 @@ public class ClienteController {
 		bairroEdit.clear();
 		cidadeEdit.clear();
 	}
+    
+    private void initTable() {
+    	tcCodCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("id_cli"));
+    	tcNomeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));
+    	tcTelCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone"));
+    	tcCpfCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpf"));
+    	//tcRuaCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("rua"));
+    	tvCliente.setItems(FXCollections.observableArrayList(clientes));
+    }
     
     @FXML
     void btnBuscarTab(ActionEvent event) {
@@ -140,7 +179,7 @@ public class ClienteController {
 
     @FXML
     void btnExcluir(ActionEvent event) {
-
+    	
     }
 
     @FXML
@@ -166,6 +205,23 @@ public class ClienteController {
 		}
     }
 	
+    @FXML 
+    void btnBuscarTodosCli(ActionEvent event) {
+    	ArrayList<?> todosCli = null;
+    	DBCliente db_cli = new DBCliente();
+    	try {
+			todosCli = db_cli.buscarTodosClientes();
+			if(todosCli != null) {
+				for (int i = 0; i < todosCli.size(); i++) {
+					clientes.add((Cliente) todosCli.get(i));
+				}
+				initTable();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    }
+    
 	@FXML
     void btnVoltar(ActionEvent event) {
     	application.Main.trocarTela("inicial");
