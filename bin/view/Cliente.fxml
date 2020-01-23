@@ -32,7 +32,7 @@
                         </ImageView>
                         <TextField fx:id="rua" alignment="CENTER" layoutX="364.0" layoutY="224.0" promptText="Rua" />
                         <TextField fx:id="cidade" alignment="CENTER" layoutX="364.0" layoutY="255.0" promptText="Cidade" />
-                        <TextField fx:id="nome" alignment="CENTER" layoutX="177.0" layoutY="193.0" promptText="Nome" />
+                        <TextField fx:id="nomeCad" alignment="CENTER" layoutX="177.0" layoutY="193.0" promptText="Nome" />
                      </children></AnchorPane>
             </content>
           </Tab>

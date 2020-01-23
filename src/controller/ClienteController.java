@@ -21,6 +21,9 @@ public class ClienteController {
     private TextField nome;
 
     @FXML
+    private TextField nomeCad;
+    
+    @FXML
     private TextField bairro;
     
     @FXML
@@ -43,12 +46,12 @@ public class ClienteController {
     
     private void limparCampos() {
 		cpf.clear();
-		nome.clear();
 		bairro.clear();
 		rua.clear();
 		cidade.clear();
 		tel.clear();
 		codCli.clear();
+		nomeCad.clear();
 	}
     
     @FXML
@@ -69,7 +72,7 @@ public class ClienteController {
     		db_end.cadEndereco(end);
     		end.setIdEndereco(db_end.buscaUltimoEndereco().getIdEndereco());
 			
-    		Cliente cli = new Cliente(cpf.getText(), nome.getText(), end, tel.getText());
+    		Cliente cli = new Cliente(cpf.getText(), nomeCad.getText(), end, tel.getText());
 			DBCliente db_cli = new DBCliente();
 			
 			if (db_cli.cadCliente(cli)) {

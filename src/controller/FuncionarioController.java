@@ -76,6 +76,7 @@ public class FuncionarioController {
 	@FXML
 	void btnBuscar(ActionEvent event) {
 		limparCampos();
+		tvFunc.getItems().clear();
 		Funcionario func = new Funcionario();
 		DBFuncionario DBfunc = new DBFuncionario();
 		
