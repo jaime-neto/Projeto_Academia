@@ -44,6 +44,29 @@ public class ClienteController {
     @FXML
     private Label statusExcluir;
     
+    @FXML
+    private TextField codCliEdit;
+    
+    @FXML
+    private TextField nomeEdit;
+    
+    @FXML
+    private TextField cpfEdit;
+    
+    @FXML
+    private TextField telEdit;
+    
+    @FXML
+    private TextField ruaEdit;
+    
+    @FXML
+    private TextField bairroEdit;
+    
+    @FXML
+    private TextField cidadeEdit;
+    
+    private Endereco endTemp = null;
+    
     private void limparCampos() {
 		cpf.clear();
 		bairro.clear();
@@ -52,12 +75,68 @@ public class ClienteController {
 		tel.clear();
 		codCli.clear();
 		nomeCad.clear();
+		codCliEdit.clear();
+		nomeEdit.clear();
+		cpfEdit.clear();
+		telEdit.clear();
+		ruaEdit.clear();
+		bairroEdit.clear();
+		cidadeEdit.clear();
 	}
     
     @FXML
-    void btnBuscar(ActionEvent event) {
-
+    void btnBuscarTab(ActionEvent event) {
+    	
     }
+    
+    @FXML
+    void btnBuscarEditar(ActionEvent event) {
+    	Cliente cli = new Cliente();
+    	cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
+    	DBCliente db_cli =  new DBCliente();
+    	cli = db_cli.buscaCliente(cli);
+    	
+    	if(cli != null) {
+    		JOptionPane.showMessageDialog(null, "Cliente " + cli.getNome()
+			+ " encontrado, altere"
+			+ " somente os dados que deseja.");
+    		
+    		
+    		nomeEdit.setText(cli.getNome());
+    		cpfEdit.setText(cli.getCpf());
+    		telEdit.setText(cli.getTelefone());
+    		ruaEdit.setText(cli.getEndereco().getRua());
+    		bairroEdit.setText(cli.getEndereco().getBairro());
+    		cidadeEdit.setText(cli.getEndereco().getCidade());
+    		
+    		endTemp = cli.getEndereco();
+    	}	
+    }
+    
+    @FXML
+    void btnEditarCli(ActionEvent event) {
+    	try {
+    		DBEndereco db_end = new DBEndereco();
+    		Endereco end = new Endereco(ruaEdit.getText(),bairroEdit.getText(), cidadeEdit.getText());
+    		end.setIdEndereco(endTemp.getIdEndereco());
+    		db_end.editEndereco(end);
+    		
+    		Cliente cli = new Cliente(cpfEdit.getText(), nomeEdit.getText(),end, telEdit.getText());
+			cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
+			
+			DBCliente db_cli = new DBCliente();
+			
+			if(db_cli.editCliente(cli)) {
+				JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
+				limparCampos();
+			} else {
+				JOptionPane.showMessageDialog(null, "Problema ao editar Cliente. Tente novamente.");
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+    }
+    
 
     @FXML
     void btnExcluir(ActionEvent event) {
