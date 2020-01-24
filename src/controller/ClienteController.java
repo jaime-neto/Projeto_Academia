@@ -10,6 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -55,6 +58,9 @@ public class ClienteController {
     
     @FXML
     private TextField codCliEdit;
+    
+    @FXML
+    private TextField codCliExcluir;
     
     @FXML
     private TextField nomeEdit;
@@ -115,6 +121,7 @@ public class ClienteController {
 		bairroEdit.clear();
 		cidadeEdit.clear();
 	}
+    
     
     private void initTable() {
     	tcCodeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("idCliente"));
@@ -198,7 +205,34 @@ public class ClienteController {
 
     @FXML
     void btnExcluir(ActionEvent event) {
-    	
+    	try {
+
+        	DBCliente db_cli = new DBCliente();
+        	Cliente cli = new Cliente();
+        	if(!codCliExcluir.getText().isEmpty()) {    		
+        		cli.setIdCliente(Integer.parseInt(codCliExcluir.getText()));
+        		cli = db_cli.buscaCliente(cli);
+        		
+        		Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja exluir " + cli.getNome() + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        		alert.showAndWait();
+        		
+        		if(alert.getResult() == ButtonType.YES) {
+        			if(db_cli.deleteCliente(cli)) {        				
+        				JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso.");
+        				codCliExcluir.clear();
+        			} else {
+        				JOptionPane.showMessageDialog(null, "Ocorreu um problema durante a remocao do Cliente. Tente novamente. Certifique-se que esta inserindo uma ID valido.");
+        			}
+        		}
+        	}else {
+        		JOptionPane.showMessageDialog(null, "Insira um ID valido para remover um Cliente.");
+        		codCliExcluir.clear();
+        	}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um problema durante a remocao do Cliente. Tente novamente. Certifique-se que esta inserindo uma ID valido.");
+			System.err.println(e.getMessage());
+			limparCampos();
+		}
     }
 
     @FXML
@@ -214,7 +248,6 @@ public class ClienteController {
 			
 			if (db_cli.cadCliente(cli)) {
 				JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso");
-				limparCampos();
 			} else {
 				JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");
 			}
