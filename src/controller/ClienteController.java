@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Cliente;
 import model.Endereco;
-import model.Funcionario;
 
 public class ClienteController {
 	
@@ -26,6 +25,9 @@ public class ClienteController {
 
     @FXML
     private TextField nome;
+    
+    @FXML
+    private TextField buscCod;
 
     @FXML
     private TextField nomeCad;
@@ -73,7 +75,7 @@ public class ClienteController {
     private TextField cidadeEdit;
     
     @FXML
-	private TableColumn<Cliente, String> tcCodCli;
+	private TableColumn<Cliente, String> tcCodeCli;
     
     @FXML
 	private TableColumn<Cliente, String> tcNomeCli;
@@ -85,13 +87,13 @@ public class ClienteController {
 	private TableColumn<Cliente, String> tcCpfCli;
     
     @FXML
-	private TableColumn<Cliente, String> tcRuaCli;
+	private TableColumn<Endereco, String> tcRuaCli;
     
     @FXML
-	private TableColumn<Cliente, String> tcBairroCli;
+	private TableColumn<Endereco, String> tcBairroCli;
     
     @FXML
-	private TableColumn<Cliente, String> tcCidadeCli;
+	private TableColumn<Endereco, String> tcCidadeCli;
     
     private ObservableList<Cliente> clientes = FXCollections.observableArrayList();
     
@@ -115,17 +117,34 @@ public class ClienteController {
 	}
     
     private void initTable() {
-    	tcCodCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("id_cli"));
+    	tcCodeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("idCliente"));
     	tcNomeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));
     	tcTelCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone"));
     	tcCpfCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpf"));
-    	//tcRuaCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("rua"));
+    	tcRuaCli.setCellValueFactory(new PropertyValueFactory<Endereco, String>("rua"));
+    	tcBairroCli.setCellValueFactory(new PropertyValueFactory<Endereco, String>("bairro"));
+    	tcCidadeCli.setCellValueFactory(new PropertyValueFactory<Endereco, String>("cidade"));
     	tvCliente.setItems(FXCollections.observableArrayList(clientes));
     }
     
     @FXML
     void btnBuscarTab(ActionEvent event) {
-    	
+		Cliente cli = new Cliente();
+		DBCliente DBcli = new DBCliente();
+		
+		try {
+			cli.setIdCliente(Integer.parseInt(buscCod.getText()));
+			cli = DBcli.buscaCliente(cli);
+			if(cli != null) {
+				clientes.add(cli);
+				initTable();
+			}else {
+				JOptionPane.showMessageDialog(null, "Cliente nao encontrado.");
+			}
+			
+		}catch(Exception ex) {
+			System.err.println(ex.getMessage());
+		}
     }
     
     @FXML
@@ -200,8 +219,8 @@ public class ClienteController {
 				JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");
 			}
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
 		}
     }
 	
@@ -216,9 +235,11 @@ public class ClienteController {
 					clientes.add((Cliente) todosCli.get(i));
 				}
 				initTable();
+			}else {
+				JOptionPane.showMessageDialog(null, "Nenhum cliente foi encontrado.");
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
 		}
     }
     

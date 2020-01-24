@@ -59,4 +59,27 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 	
+	public void setRua(String rua) {
+		this.endereco.setRua(rua);
+	}
+	
+	public String getRua() {
+		return(this.endereco.getRua());
+	}
+	
+	public void setBairro(String bairro) {
+		this.endereco.setBairro(bairro);
+	}
+	
+	public String getBairro() {
+		return(this.endereco.getBairro());
+	}
+	
+	public void setCidade(String cidade) {
+		this.endereco.setBairro(cidade);
+	}
+	
+	public String getCidade() {
+		return(this.endereco.getCidade());
+	}
 }

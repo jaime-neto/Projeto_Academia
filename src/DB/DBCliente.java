@@ -176,7 +176,7 @@ public class DBCliente {
             	cli.setEndereco(end);
             	clientes.add(cli);
             }
-
+            
             return clientes;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());

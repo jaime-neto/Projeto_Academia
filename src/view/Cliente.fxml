@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClienteController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClienteController">
    <children>
       <TabPane prefHeight="400.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -70,7 +70,7 @@
                            </image>
                         </ImageView>
                         <Button layoutX="442.0" layoutY="112.0" mnemonicParsing="false" onAction="#btnBuscarTab" text="Buscar" />
-                        <TextField fx:id="nome" alignment="TOP_CENTER" layoutX="240.0" layoutY="112.0" promptText="Nome" />
+                        <TextField fx:id="buscCod" alignment="TOP_CENTER" layoutX="240.0" layoutY="112.0" promptText="Código do cliente" />
                         <TableView fx:id="tvCliente" layoutY="153.0" prefHeight="213.0" prefWidth="720.0">
                           <columns>
                             <TableColumn fx:id="tcCodeCli" prefWidth="52.0" text="Codigo" />

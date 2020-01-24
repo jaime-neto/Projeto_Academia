@@ -183,7 +183,7 @@ public class FuncionarioController {
 			if(todosFunc != null) {
 				for (int i = 0; i < todosFunc.size(); i++) {
 					funcionarios.add((Funcionario)todosFunc.get(i));
-			    }
+				}
 				initTable();
 			}else {
 				JOptionPane.showMessageDialog(null, "Nenhum funcionario foi encontrado.");
