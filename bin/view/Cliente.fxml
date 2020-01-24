@@ -90,7 +90,7 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="638.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
-                        <TextField fx:id="codCli" alignment="TOP_CENTER" layoutX="240.0" layoutY="184.0" promptText="Codigo do cliente" />
+                        <TextField fx:id="codCliExcluir" alignment="TOP_CENTER" layoutX="240.0" layoutY="184.0" promptText="Codigo do cliente" />
                         <Button layoutX="435.0" layoutY="184.0" mnemonicParsing="false" onAction="#btnExcluir" text="Excluir" />
                         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="285.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
