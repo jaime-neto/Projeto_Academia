@@ -212,18 +212,23 @@ public class FuncionarioController {
 
 	@FXML
 	void btnSalvar(ActionEvent event) {
+		
 		try {
 			Funcionario func = new Funcionario(cadNome.getText(), user.getText(),
 					senha.getText(), cpf.getText(), Float.parseFloat(salario.getText()));
 			
 			DBFuncionario DBfunc = new DBFuncionario();
-			if(DBfunc.cadFuncionario(func)) {
-				JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
-			}else {
-				JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
-			}
-			limparCampos();
 			
+			if(!DBfunc.buscaCpf(cpf.getText())) {
+				if(DBfunc.cadFuncionario(func)) {
+					JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
+				}else {
+					JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
+				}
+				limparCampos();
+			}else {
+				JOptionPane.showMessageDialog(null, "Já existe um funcionario com esse CPF.");
+			}
 		}catch(Exception ex) {
 			System.err.println(ex.getMessage());
 		}

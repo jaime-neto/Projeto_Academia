@@ -39,6 +39,31 @@ public boolean cadFuncionario(Funcionario func) {
         }
 		
 	}
+
+	public Boolean buscaCpf(String cpf) {
+		
+		String cpfBuscado = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from funcionario where cpf = ?";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+        		
+        	stmt.setString(1, cpf);
+        	
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	cpfBuscado = rs.getString("cpf");
+            }
+            
+            if(cpfBuscado != null) return(true);
+            return(false);
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return false;
+        } 
+	}
 	
 	public boolean editFuncionario(Funcionario func) {
 		
