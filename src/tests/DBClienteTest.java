@@ -34,7 +34,7 @@ class DBClienteTest {
 		Endereco endMock = new Endereco();
 		endMock.setIdEndereco(db_endMock.buscaUltimoEndereco().getIdEndereco());
 		cliMock.setEndereco(endMock);
-		bdMock.cadCliente(cliMock);
+		bdMock.cadCliente(cliMock.getNome(), cliMock.getCpf(), cliMock.getTelefone(), cliMock.getEndereco().getIdEndereco());
 	}
 	
 	@BeforeEach
@@ -53,12 +53,12 @@ class DBClienteTest {
 
 	@Test
 	void cadCli() {
-		assertEquals(true, db_cli.cadCliente(cli));
+		assertEquals(true, db_cli.cadCliente(cli.getNome(), cli.getCpf(), cli.getTelefone(), cli.getEndereco().getIdEndereco()));
 	}
 	
 	@Test
 	void editCli() {
-		assertEquals(true, db_cli.editCliente(cli));
+		assertEquals(true, db_cli.editCliente(cli.getIdCliente(), cli));
 	}
 	
 	@Test
@@ -75,7 +75,7 @@ class DBClienteTest {
 	
 	@Test
 	void delCli() {
-		assertEquals(true, db_cli.deleteCliente(cli));
+		assertEquals(true, db_cli.deleteCliente(cli.getIdCliente()));
 	}
 	
 	@Test

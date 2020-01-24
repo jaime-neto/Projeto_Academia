@@ -17,17 +17,17 @@ public class DBCliente {
 		con = (Connection) ConnectionFactory.getConnection();
 	}
 	
-	public boolean cadCliente(Cliente cliente) {
+	public boolean cadCliente(String nome, String cpf, String telefone, int id_end) {
 		
 		PreparedStatement stmt = null;
         String sql = "INSERT INTO cliente (nome ,cpf,telefone, id_end) VALUES (?,?,?,?)";
         try {
             stmt =  con.prepareStatement(sql);
 
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCpf());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setInt(4, cliente.getEndereco().getIdEndereco());
+            stmt.setString(1, nome);
+            stmt.setString(2, cpf);
+            stmt.setString(3, telefone);
+            stmt.setInt(4, id_end);
             
             int result = stmt.executeUpdate(); //executar o sql r insere no DB
             if(result == 1) {
@@ -44,7 +44,7 @@ public class DBCliente {
 		
 	}
 	
-	public boolean editCliente(Cliente cliente) {
+	public boolean editCliente(int id_cli, Cliente cliente) {
 		
 		PreparedStatement stmt = null;
         String sql = "UPDATE cliente SET nome = ?,cpf = ?, id_end = ?, telefone = ? WHERE id_cli = ?";
@@ -57,7 +57,7 @@ public class DBCliente {
             stmt.setInt(3, cliente.getEndereco().getIdEndereco());
             stmt.setString(4, cliente.getTelefone());
             
-            stmt.setLong(5, cliente.getIdCliente());
+            stmt.setLong(5, id_cli);
 
             stmt.executeUpdate(); //executar o sql
             return true;
@@ -69,7 +69,7 @@ public class DBCliente {
         }
 	}
 	
-	public boolean deleteCliente(Cliente cliente) {
+	public boolean deleteCliente(int id_cli) {
 		
 		PreparedStatement stmt = null;
         String sql = "DELETE from cliente WHERE id_cli = ?";
@@ -77,7 +77,7 @@ public class DBCliente {
         try {
         	stmt = con.prepareStatement(sql);
             
-            stmt.setLong(1, cliente.getIdCliente());
+            stmt.setLong(1, id_cli);
 
             stmt.executeUpdate(); //executar o sql
             return true;

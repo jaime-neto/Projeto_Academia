@@ -191,7 +191,7 @@ public class ClienteController {
 			
 			DBCliente db_cli = new DBCliente();
 			
-			if(db_cli.editCliente(cli)) {
+			if(db_cli.editCliente(cli.getIdCliente(), cli)) {
 				JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
 				limparCampos();
 			} else {
@@ -217,7 +217,7 @@ public class ClienteController {
         		alert.showAndWait();
         		
         		if(alert.getResult() == ButtonType.YES) {
-        			if(db_cli.deleteCliente(cli)) {        				
+        			if(db_cli.deleteCliente(cli.getIdCliente())) {        				
         				JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso.");
         				codCliExcluir.clear();
         			} else {
@@ -246,7 +246,7 @@ public class ClienteController {
     		Cliente cli = new Cliente(cpf.getText(), nomeCad.getText(), end, tel.getText());
 			DBCliente db_cli = new DBCliente();
 			
-			if (db_cli.cadCliente(cli)) {
+			if (db_cli.cadCliente(cli.getNome(), cli.getCpf(), cli.getTelefone(), cli.getEndereco().getIdEndereco())) {
 				JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso");
 			} else {
 				JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");

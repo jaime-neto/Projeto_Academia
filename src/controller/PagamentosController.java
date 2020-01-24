@@ -42,7 +42,17 @@ public class PagamentosController {
     private Label statusRemovePgmt;
 
     @FXML
+    void btnBuscarPag(ActionEvent event) {
+
+    }
+    
+    @FXML
     void btnBuscar(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void btnBuscarTodosPag(ActionEvent event) {
 
     }
 
@@ -52,7 +62,7 @@ public class PagamentosController {
     }
 
     @FXML
-    void btnRemover(ActionEvent event) {
+    void btnRemoverPag(ActionEvent event) {
 
     }
 	
