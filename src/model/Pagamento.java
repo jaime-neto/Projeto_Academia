@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Calendar;
-
 public class Pagamento {
 	protected int idPag;
 	protected String data;
@@ -60,4 +58,13 @@ public class Pagamento {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+	public Cliente getCli() {
+		return this.idCliente;
+	}
+	
+	public Funcionario getFunc() {
+		return this.idFunc;
+	}
+	
 }

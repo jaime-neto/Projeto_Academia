@@ -1,16 +1,13 @@
 package controller;
 
-import java.time.LocalDate;
-import java.util.Calendar;
-
 import javax.swing.JOptionPane;
-
 import DB.DBCliente;
 import DB.DBFuncionario;
 import DB.DBPagamento;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -18,8 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
+import javafx.scene.control.Alert.AlertType;
 import model.Cliente;
 import model.Funcionario;
 import model.Pagamento;
@@ -49,7 +45,7 @@ public class PagamentosController {
     	
 	@FXML
 	private MenuItem menuItem3;
-
+	
 	@FXML
 	private TableView<?> tvPgmt;
 
@@ -103,7 +99,7 @@ public class PagamentosController {
     void btnBuscarTodosPag(ActionEvent event) {
 
     }
-    		
+   
     @FXML
     void miMensal(ActionEvent event) {
     	tipoPgmt = "Mensal";
@@ -154,7 +150,30 @@ public class PagamentosController {
 
     @FXML
     void btnRemoverPag(ActionEvent event) {
-
+    
+    	DBPagamento db_pgmt = new DBPagamento();
+    	Pagamento pgmt = new Pagamento();
+    	
+    	try {	
+        	
+        	pgmt.setIdPag(Integer.parseInt(codPag.getText()));
+        	Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja "
+        			+ "exluir?" , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            	
+        	alert.showAndWait();
+            		
+            if(alert.getResult() == ButtonType.YES) {
+            	if(db_pgmt.deletePagamento(pgmt)) {        				
+           			JOptionPane.showMessageDialog(null, "Pagamento excluido com sucesso.");
+           			codPag.clear();
+           		} else {
+           			JOptionPane.showMessageDialog(null, "Ocorreu um problema durante a remocao do Pagamento. Tente novamente. Certifique-se que esta inserindo uma ID valido.");
+          		}
+           	}
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+			codPag.clear();
+		}
     }
 	
 	@FXML

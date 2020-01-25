@@ -60,15 +60,13 @@ public class DBPagamento {
 	public boolean deletePagamento(Pagamento pagamento) {
 		
 		PreparedStatement stmt = null;
-        String sql = "DELETE from pagamento WHERE id_cli = ?" ;
+        String sql = "DELETE from pagamento WHERE id_pag = ?" ;
         
         try {
             stmt =  con.prepareStatement(sql);
-            
-            stmt.setLong(1, pagamento.getIdCliente().getIdCliente());
-
-            stmt.executeUpdate(); //executar o sql
-            return true;
+            stmt.setLong(1, pagamento.getIdPag());
+            int result = stmt.executeUpdate(); //executar o sql
+            return result == 1 ? true:false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return false;
