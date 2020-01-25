@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PagamentosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PagamentosController">
    <children>
       <TabPane prefHeight="420.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -30,14 +30,14 @@
                               <Image url="@../../bin/icons/pagamento.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="codFunc" alignment="TOP_CENTER" layoutX="178.0" layoutY="184.0" promptText="Codigo Funcionario" />
-                        <TextField fx:id="codCli" alignment="TOP_CENTER" layoutX="371.0" layoutY="184.0" promptText="Codigo Cliente" />
+                        <TextField fx:id="codFuncPagar" alignment="TOP_CENTER" layoutX="178.0" layoutY="184.0" promptText="Codigo Funcionario" />
+                        <TextField fx:id="codCliPagar" alignment="TOP_CENTER" layoutX="371.0" layoutY="184.0" promptText="Codigo Cliente" />
                         <DatePicker fx:id="data" layoutX="178.0" layoutY="220.0" prefHeight="26.0" prefWidth="171.0" promptText="Data" />
                         <MenuButton fx:id="tipo" layoutX="372.0" layoutY="220.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Tipo" wrapText="true">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Mensal" />
-                            <MenuItem mnemonicParsing="false" text="Semestral" />
-                              <MenuItem mnemonicParsing="false" text="Promocional" />
+                            <MenuItem fx:id="menuItem1" mnemonicParsing="false" onAction="#miMensal" text="Mensal" />
+                            <MenuItem fx:id="menuItem1" mnemonicParsing="false" onAction="#miSemestral" text="Semestral" />
+                              <MenuItem fx:id="menuItem1" mnemonicParsing="false" onAction="#miPromocional" text="Promocional" />
                           </items>
                         </MenuButton>
                      </children>
@@ -111,7 +111,7 @@
                           </columns>
                         </TableView>
                         <Button layoutX="103.0" layoutY="92.0" mnemonicParsing="false" onAction="#btnBuscarTodosPag" text="Buscar Todos" />
-                        <TextField layoutX="270.0" layoutY="92.0" prefHeight="31.0" prefWidth="195.0" promptText="Digite o ID de Pagamento" />
+                        <TextField fx:id="buscaCpf" alignment="TOP_CENTER" layoutX="270.0" layoutY="92.0" prefHeight="31.0" prefWidth="195.0" promptText="Digite o CPF do cliente" />
                         <Button layoutX="482.0" layoutY="92.0" mnemonicParsing="false" onAction="#btnBuscarPag" text="Buscar" />
                      </children>
                   </AnchorPane>

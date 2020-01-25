@@ -1,14 +1,11 @@
 package DB;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
 import model.Cliente;
 import model.Funcionario;
 import model.Pagamento;
@@ -24,16 +21,10 @@ public class DBPagamento {
 	
 	public boolean realizarPagamento(Pagamento pagamento) {
 		PreparedStatement stmt = null;
-        String sql = "INSERT INTO pagamento (data ,tipo, id_func , id_cli) VALUES (?,?,?,?)";
-        
-        try {
-            stmt =  con.prepareStatement(sql);
-
-            stmt.setDate(1, (java.sql.Date)  new Date(Calendar.getInstance().getTime().getTime()));
-            stmt.setString(2, pagamento.getTipo());
-            stmt.setInt(3, pagamento.getIdFunc().getIdFunc());
-            stmt.setInt(4, pagamento.getIdCliente().getIdCliente());
-
+        String sql = "insert into pagamento (data, tipo, id_func, id_cli) values (to_date('"+pagamento.getData()+"','yyyy-mm-dd'), '"+pagamento.getTipo()+"', "+pagamento.getIdFunc().getIdFunc()+", "+pagamento.getIdCliente().getIdCliente()+");";
+		
+		try {
+            stmt =  con.prepareStatement(sql);         
             int result  = stmt.executeUpdate(); //executar o sql r insere no DB
             return result == 1 ? true: false;
         } catch (SQLException ex) {
@@ -98,9 +89,9 @@ public class DBPagamento {
             rs = stmt.executeQuery();
             while(rs.next()) {
             	pag = new Pagamento();
-            	Calendar cal = Calendar.getInstance();
-            	cal.setTime(rs.getDate("data"));
-            	pag.setData(cal);
+            	/*Calendar cal = Calendar.getInstance();
+            	cal.setTime(rs.getDate("data"));*/
+            	pag.setData("");
             	pag.setTipo(rs.getString("tipo"));
             	pag.setIdPag(rs.getInt("id_pag"));
             	//buscar Funcionario no BD
@@ -145,10 +136,10 @@ public class DBPagamento {
                 func.setIdFunc(rs.getInt("id_func"));
                 pagamento.setIdFunc(db_func.buscaFuncionario(func));
                 
-                Calendar cal = Calendar.getInstance();
-                Date data = new Date(rs.getDate("data").getTime());
-                cal.setTime(data);
-                pagamento.setData(cal);
+                //Calendar cal = Calendar.getInstance();
+                //Date data = new Date(rs.getDate("data").getTime());
+               //cal.setTime(data);
+                pagamento.setData("");
                 
                 pagamento.setTipo(rs.getString("tipo"));
 
