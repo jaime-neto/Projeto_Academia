@@ -20,12 +20,7 @@ class DBFuncionarioTest {
 	static void setMock() {
 		DBFuncionario db_funcMock = new DBFuncionario();
 		Funcionario funcMock = new Funcionario();
-		funcMock.setNome("Joseph");
-		funcMock.setCpf("70318248878");
-		funcMock.setUsuario("josephFunc");
-		funcMock.setSenha("12345");
-		funcMock.setSalario(1000);
-		db_funcMock.cadFuncionario(funcMock);
+		db_funcMock.cadFuncionario("Joseph","70318248878",1000, "josephFunc", "12345");
 	}
 	
 	@BeforeEach
@@ -42,18 +37,18 @@ class DBFuncionarioTest {
 
 	@Test
 	void cadFunc() {
-		assertEquals(true, db_func.cadFuncionario(func));
+		assertEquals(true, db_func.cadFuncionario(func.getNome(), func.getCpf(), func.getSalario(), func.getUsuario(), func.getSenha()));
 	}
 	
 	@Test
 	void editFunc() {
 		func.setNome("John");
-		assertEquals(true, db_func.editFuncionario(func));
+		assertEquals(true, db_func.editFuncionario(func.getIdFunc(),func));
 	}
 	
 	@Test
 	void deleteFunc() {
-		assertEquals(true, db_func.deleteFuncionario(func));
+		assertEquals(true, db_func.deleteFuncionario(func.getIdFunc()));
 	}
 	
 	@Test
@@ -69,7 +64,7 @@ class DBFuncionarioTest {
 	
 	@Test
 	void buscaFuncionario() {
-		assertTrue(db_func.buscaFuncionario(func) instanceof Funcionario);
+		assertTrue(db_func.buscaFuncionario(func.getIdFunc()) instanceof Funcionario);
 	}
 
 }

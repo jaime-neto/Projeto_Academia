@@ -64,12 +64,12 @@ class DBPagamengoTest {
 	
 	@Test
 	void editPag() {
-		assertEquals(true, db_pag.editPagamento(pag));
+		assertEquals(true, db_pag.editPagamento(pag.getIdPag(), pag));
 	}
 	
 	@Test
 	void deletePag() {
-		assertEquals(true, db_pag.deletePagamento(pag));
+		assertEquals(true, db_pag.deletePagamento(pag.getIdPag()));
 	}
 	
 	@Test

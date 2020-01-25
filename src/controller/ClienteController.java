@@ -141,7 +141,7 @@ public class ClienteController {
 		
 		try {
 			cli.setIdCliente(Integer.parseInt(buscCod.getText()));
-			cli = DBcli.buscaCliente(cli);
+			cli = DBcli.buscaCliente(cli.getIdCliente());
 			if(cli != null) {
 				clientes.add(cli);
 				initTable();
@@ -159,7 +159,7 @@ public class ClienteController {
     	Cliente cli = new Cliente();
     	cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
     	DBCliente db_cli =  new DBCliente();
-    	cli = db_cli.buscaCliente(cli);
+    	cli = db_cli.buscaCliente(cli.getIdCliente());
     	
     	if(cli != null) {
     		JOptionPane.showMessageDialog(null, "Cliente " + cli.getNome()
@@ -211,7 +211,7 @@ public class ClienteController {
         	Cliente cli = new Cliente();
         	if(!codCliExcluir.getText().isEmpty()) {    		
         		cli.setIdCliente(Integer.parseInt(codCliExcluir.getText()));
-        		cli = db_cli.buscaCliente(cli);
+        		cli = db_cli.buscaCliente(cli.getIdCliente());
         		
         		Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja exluir " + cli.getNome() + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         		alert.showAndWait();

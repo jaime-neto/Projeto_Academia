@@ -16,18 +16,18 @@ private Connection con = null;
 		con = (Connection) ConnectionFactory.getConnection();
 	}
 	
-public boolean cadFuncionario(Funcionario func) {
+public boolean cadFuncionario(String nome, String cpf, float salario, String usuario, String senha) {
 			
 		PreparedStatement stmt = null;
         String sql = "INSERT INTO funcionario (nome ,usuario ,senha , cpf, salario) VALUES (?,?,?,?,?)";
         try {
         	stmt =  con.prepareStatement(sql);
 
-            stmt.setString(1, func.getNome());
-            stmt.setString(2, func.getUsuario());
-            stmt.setString(3, func.getSenha());
-            stmt.setString(4, func.getCpf());
-            stmt.setFloat(5, func.getSalario());
+            stmt.setString(1, nome);
+            stmt.setString(2, usuario);
+            stmt.setString(3, senha);
+            stmt.setString(4, cpf);
+            stmt.setFloat(5, salario);
 
             int result = stmt.executeUpdate(); //executar o sql r insere no DB
             return result == 1 ? true:false;
@@ -40,7 +40,7 @@ public boolean cadFuncionario(Funcionario func) {
 		
 	}
 
-	public Boolean buscaCpf(String cpf) {
+	public Boolean buscaFuncionarioCpf(String cpf) {
 		
 		String cpfBuscado = null;
 		ResultSet rs = null;
@@ -65,7 +65,7 @@ public boolean cadFuncionario(Funcionario func) {
         } 
 	}
 	
-	public boolean editFuncionario(Funcionario func) {
+	public boolean editFuncionario(int id_func ,Funcionario func) {
 		
 		PreparedStatement stmt = null;
         String sql = "UPDATE funcionario SET nome = ?, usuario = ?,senha = ?, cpf = ?, salario = ? WHERE id_func = ?";
@@ -79,7 +79,7 @@ public boolean cadFuncionario(Funcionario func) {
             stmt.setString(4, func.getCpf());
             stmt.setFloat(5, func.getSalario());
             
-            stmt.setLong(6, func.getIdFunc());
+            stmt.setLong(6, id_func);
 
             int result = stmt.executeUpdate(); //executar o sql
             return result == 1 ? true:false;
@@ -91,7 +91,7 @@ public boolean cadFuncionario(Funcionario func) {
         }
 	}
 	
-	public boolean deleteFuncionario(Funcionario func) {
+	public boolean deleteFuncionario(int id_func) {
 		
 		PreparedStatement stmt = null;
         String sql = "DELETE from funcionario WHERE id_func = ?";
@@ -99,7 +99,7 @@ public boolean cadFuncionario(Funcionario func) {
         try {
         	stmt = con.prepareStatement(sql);
             
-        	stmt.setLong(1, func.getIdFunc());
+        	stmt.setLong(1, id_func);
 
             int result = stmt.executeUpdate(); //executar o sql
             return result == 1 ? true:false;
@@ -139,7 +139,7 @@ public boolean cadFuncionario(Funcionario func) {
 		
 	}
 	
-	public Funcionario buscaFuncionario(Funcionario idFunc) {
+	public Funcionario buscaFuncionario(int id_func) {
 		Funcionario func = null; 
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
@@ -148,7 +148,7 @@ public boolean cadFuncionario(Funcionario func) {
         try {
         	stmt = con.prepareStatement(sql);
         		
-        	stmt.setLong(1, idFunc.getIdFunc());
+        	stmt.setLong(1, id_func);
         	
             rs = stmt.executeQuery();
             while(rs.next()) {

@@ -128,8 +128,8 @@ public class PagamentosController {
     		cli.setIdCliente(Integer.parseInt(codCliPagar.getText()));
     		func.setIdFunc(Integer.parseInt(codFuncPagar.getText()));
     		
-    		cli = DBcli.buscaCliente(cli);
-    		func = DBfunc.buscaFuncionario(func);
+    		cli = DBcli.buscaCliente(cli.getIdCliente());
+    		func = DBfunc.buscaFuncionario(func.getIdFunc());
     		
     		if(cli != null && func != null & tipoPgmt != null) {
     			Pagamento pgmt = new Pagamento(data.getValue().toString(), cli,
@@ -155,21 +155,23 @@ public class PagamentosController {
     	Pagamento pgmt = new Pagamento();
     	
     	try {	
-        	
-        	pgmt.setIdPag(Integer.parseInt(codPag.getText()));
-        	Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja "
-        			+ "exluir?" , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-            	
-        	alert.showAndWait();
-            		
-            if(alert.getResult() == ButtonType.YES) {
-            	if(db_pgmt.deletePagamento(pgmt)) {        				
-           			JOptionPane.showMessageDialog(null, "Pagamento excluido com sucesso.");
-           			codPag.clear();
-           		} else {
-           			JOptionPane.showMessageDialog(null, "Ocorreu um problema durante a remocao do Pagamento. Tente novamente. Certifique-se que esta inserindo uma ID valido.");
-          		}
-           	}
+        	if(!codPag.getText().isEmpty()) {    		
+        		pgmt.setIdPag(Integer.parseInt(codPag.getText()));
+        		Alert alert = new Alert(AlertType.CONFIRMATION, "Tem certeza que deseja "
+        				+ "exluir?" , ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        		
+        		alert.showAndWait();        		
+        		if(alert.getResult() == ButtonType.YES) {
+        			if(db_pgmt.deletePagamento(pgmt.getIdPag())) {        				
+        				JOptionPane.showMessageDialog(null, "Pagamento excluido com sucesso.");
+        				codPag.clear();
+        			} else {
+        				JOptionPane.showMessageDialog(null, "Ocorreu um problema durante a remocao do Pagamento. Tente novamente. Certifique-se que esta inserindo uma ID valido.");
+        			}
+        		}
+        	} else {
+        		JOptionPane.showMessageDialog(null, "Digite um ID valido.");
+        	}
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 			codPag.clear();

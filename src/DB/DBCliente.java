@@ -120,7 +120,7 @@ public class DBCliente {
 		
 	}
 	
-	public Cliente buscaCliente(Cliente idCliente) {
+	public Cliente buscaCliente(int id_cli) {
 		Cliente cli = null; 
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
@@ -129,7 +129,7 @@ public class DBCliente {
         try {
         	stmt = con.prepareStatement(sql);
         	
-        	stmt.setInt(1, idCliente.getIdCliente());
+        	stmt.setInt(1, id_cli);
         	
             rs = stmt.executeQuery();
             while(rs.next()) {

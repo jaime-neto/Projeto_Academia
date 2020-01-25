@@ -107,7 +107,7 @@ public class FuncionarioController {
 		
 		try {
 			func.setIdFunc(Integer.parseInt(buscCod.getText()));
-			func = DBfunc.buscaFuncionario(func);
+			func = DBfunc.buscaFuncionario(func.getIdFunc());
 			if(func != null) {
 				funcionarios.add(func);
 				initTable();
@@ -133,7 +133,7 @@ public class FuncionarioController {
 			func.setSenha(senhaEditar.getText());
 			func.setIdFunc(idFuncTemporario);
 			
-			if(DBfunc.editFuncionario(func)) {
+			if(DBfunc.editFuncionario(func.getIdFunc(),func)) {
 				JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso.");
 			}else {
 				JOptionPane.showMessageDialog(null, "O Funcionario não foi editado,"
@@ -151,7 +151,7 @@ public class FuncionarioController {
 			func.setIdFunc(Integer.parseInt(codFuncEditar.getText()));
 			DBFuncionario DBfunc = new DBFuncionario();
 			
-			func = DBfunc.buscaFuncionario(func);
+			func = DBfunc.buscaFuncionario(func.getIdFunc());
 			
 			if(func != null) {
 				JOptionPane.showMessageDialog(null, "Funcionario " + func.getNome()
@@ -197,15 +197,20 @@ public class FuncionarioController {
 	void btnExcluir(ActionEvent event) {
 		try {
 			Funcionario func = new Funcionario();
-			func.setIdFunc(Integer.parseInt(codFuncExcluir.getText()));
-			DBFuncionario DBfunc = new DBFuncionario();
-			if(DBfunc.deleteFuncionario(func)) {
-				JOptionPane.showMessageDialog(null, "Funcionario deletado com sucesso");
-				limparCampos();
-			}else {
-				JOptionPane.showMessageDialog(null, "Funcionario nao encontrado.");
+			if(!codFuncExcluir.getText().isEmpty() ) {
+				func.setIdFunc(Integer.parseInt(codFuncExcluir.getText()));
+				DBFuncionario DBfunc = new DBFuncionario();
+				if(DBfunc.deleteFuncionario(func.getIdFunc())) {
+					JOptionPane.showMessageDialog(null, "Funcionario deletado com sucesso");
+					limparCampos();
+				}else {
+					JOptionPane.showMessageDialog(null, "Ops. Ocorreu um problema durante a remocao, certifique-se que digitou um ID valido e que o Funcionario nao esta associado a nenhum pagamento.");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Digite um ID valido.");
 			}
 		}catch(Exception ex) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um problema durante a remocao. Certifique-se que digitou um ID valido.");
 			System.err.println(ex.getMessage());
 		}
 	}
@@ -219,15 +224,15 @@ public class FuncionarioController {
 			
 			DBFuncionario DBfunc = new DBFuncionario();
 			
-			if(!DBfunc.buscaCpf(cpf.getText())) {
-				if(DBfunc.cadFuncionario(func)) {
+			if(!DBfunc.buscaFuncionarioCpf(cpf.getText())) {
+				if(DBfunc.cadFuncionario(func.getNome(), func.getCpf(),func.getSalario(), func.getUsuario(), func.getSenha())) {
 					JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
 				}else {
 					JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
 				}
 				limparCampos();
 			}else {
-				JOptionPane.showMessageDialog(null, "Já existe um funcionario com esse CPF.");
+				JOptionPane.showMessageDialog(null, "Um funcionario com esse CPF ja existe");
 			}
 		}catch(Exception ex) {
 			System.err.println(ex.getMessage());

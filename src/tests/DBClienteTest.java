@@ -80,7 +80,7 @@ class DBClienteTest {
 	
 	@Test
 	void buscaCli() {
-		assertTrue(db_cli.buscaCliente(cli) instanceof Cliente);
+		assertTrue(db_cli.buscaCliente(cli.getIdCliente()) instanceof Cliente);
 	}
 	
 }

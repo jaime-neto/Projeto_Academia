@@ -35,7 +35,7 @@ public class DBPagamento {
         }
 	}
 	
-	public boolean editPagamento(Pagamento pagamento) {
+	public boolean editPagamento(int id_pag, Pagamento pagamento) {
 		
 		PreparedStatement stmt = null;
         String sql = "UPDATE pagamento SET id_cli = ?, tipo = ? WHERE id_pag = ?" ;
@@ -45,7 +45,7 @@ public class DBPagamento {
 
             stmt.setLong(1, pagamento.getIdCliente().getIdCliente());
             stmt.setString(2, pagamento.getTipo());
-            stmt.setLong(3, pagamento.getIdPag());
+            stmt.setLong(3, id_pag);
 
             int result = stmt.executeUpdate(); //executar o sql
             return result == 1 ? true: false;
@@ -57,14 +57,14 @@ public class DBPagamento {
         }
 	}
 	
-	public boolean deletePagamento(Pagamento pagamento) {
+	public boolean deletePagamento(int id_pag) {
 		
 		PreparedStatement stmt = null;
         String sql = "DELETE from pagamento WHERE id_pag = ?" ;
         
         try {
             stmt =  con.prepareStatement(sql);
-            stmt.setLong(1, pagamento.getIdPag());
+            stmt.setLong(1, id_pag);
             int result = stmt.executeUpdate(); //executar o sql
             return result == 1 ? true:false;
         } catch (SQLException ex) {
@@ -96,7 +96,7 @@ public class DBPagamento {
             	Funcionario func =  new Funcionario();
             	func.setIdFunc(rs.getInt("id_func"));
             	DBFuncionario db_func = new DBFuncionario();
-            	pag.setIdFunc(db_func.buscaFuncionario(func));
+            	pag.setIdFunc(db_func.buscaFuncionario(func.getIdFunc()));
             	//Buscar Cliente no BD
             	//	pag.setCidade(rs.getString("cidade"));
             }
@@ -128,11 +128,11 @@ public class DBPagamento {
 
                 Cliente cli = new Cliente();
                 cli.setIdCliente(rs.getInt("id_cli"));
-                pagamento.setIdCliente(db_cli.buscaCliente(cli));
+                pagamento.setIdCliente(db_cli.buscaCliente(cli.getIdCliente()));
                 
                 Funcionario func = new Funcionario();
                 func.setIdFunc(rs.getInt("id_func"));
-                pagamento.setIdFunc(db_func.buscaFuncionario(func));
+                pagamento.setIdFunc(db_func.buscaFuncionario(func.getIdFunc()));
                 
                 //Calendar cal = Calendar.getInstance();
                 //Date data = new Date(rs.getDate("data").getTime());
