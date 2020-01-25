@@ -109,7 +109,7 @@ public class DBPagamento {
 		
 	}
 	
-	public List<Pagamento> buscarTodosPagamentos() {
+	public List<Pagamento> buscarTodosPagamentos(int id_cli) {
 		
 		List<Pagamento> pagamentos = new ArrayList<>();
 		PreparedStatement stmt = null;
@@ -118,8 +118,8 @@ public class DBPagamento {
         DBFuncionario db_func = new DBFuncionario();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM pagamento");
-
+            stmt = con.prepareStatement("SELECT * FROM pagamento where id_cli = ?");
+            stmt.setInt(1, id_cli);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Pagamento pagamento = new Pagamento();

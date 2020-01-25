@@ -57,29 +57,29 @@ class DBPagamengoTest {
 		pag.setIdPag(db_pag.buscaUltimoPagamento().getIdPag());
 	}
 
-	@Test
+	
 	void realizarPag() {
 		assertEquals(true, db_pag.realizarPagamento(pag));
 	}
 	
-	@Test
+	
 	void editPag() {
 		assertEquals(true, db_pag.editPagamento(pag.getIdPag(), pag));
 	}
 	
-	@Test
+	
 	void deletePag() {
 		assertEquals(true, db_pag.deletePagamento(pag.getIdPag()));
 	}
 	
-	@Test
+	
 	void buscaUltimoPag() {
 		assertTrue(db_pag.buscaUltimoPagamento() instanceof Pagamento);
 	}
 	
 	@Test
 	void buscaTodosPag() {
-		assertTrue(db_pag.buscarTodosPagamentos() instanceof ArrayList<?>);
+		assertTrue(db_pag.buscarTodosPagamentos(pag.getCli().getIdCliente()) instanceof ArrayList<?>);
 	}
 
 }
