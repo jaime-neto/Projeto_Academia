@@ -169,6 +169,37 @@ public boolean cadFuncionario(String nome, String cpf, float salario, String usu
 		
 	}
 	
+	public Funcionario loginFunc(String usuario, String senha) {
+		Funcionario func = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from funcionario where usuario = ? AND senha = ?";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+        		
+        	stmt.setString(1, usuario);
+        	stmt.setString(2, senha);
+        	
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	func = new Funcionario();
+            	func.setIdFunc(rs.getInt("id_func"));
+            	func.setNome(rs.getString("nome"));
+            	func.setUsuario(rs.getString("usuario"));
+            	func.setSenha(rs.getString("senha"));
+            	func.setCpf(rs.getString("cpf"));
+            	func.setSalario(rs.getFloat("salario"));
+            }
+
+            return func;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
+	}
+	
 	public ArrayList<Funcionario> buscarTodosFuncionarios() {
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>(); 
 		ResultSet rs = null;

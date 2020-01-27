@@ -66,5 +66,10 @@ class DBFuncionarioTest {
 	void buscaFuncionario() {
 		assertTrue(db_func.buscaFuncionario(func.getIdFunc()) instanceof Funcionario);
 	}
+	
+	@Test
+	void loginFuncionario() {
+		assertTrue(db_func.loginFunc(func.getUsuario(), func.getSenha()) != null);
+	}
 
 }

@@ -86,19 +86,14 @@ public class DBPagamento {
         	stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             while(rs.next()) {
-            	pag = new Pagamento();
-            	/*Calendar cal = Calendar.getInstance();
-            	cal.setTime(rs.getDate("data"));*/
-            	pag.setData("");
-            	pag.setTipo(rs.getString("tipo"));
-            	pag.setIdPag(rs.getInt("id_pag"));
-            	//buscar Funcionario no BD
-            	Funcionario func =  new Funcionario();
-            	func.setIdFunc(rs.getInt("id_func"));
-            	DBFuncionario db_func = new DBFuncionario();
-            	pag.setIdFunc(db_func.buscaFuncionario(func.getIdFunc()));
-            	//Buscar Cliente no BD
-            	//	pag.setCidade(rs.getString("cidade"));
+	        	pag = new Pagamento();
+	        	pag.setData(rs.getDate("data").toString());
+	        	pag.setTipo(rs.getString("tipo"));
+	        	pag.setIdPag(rs.getInt("id_pag"));
+	        	DBFuncionario db_func = new DBFuncionario();
+	        	pag.setIdFunc(db_func.buscaFuncionario(rs.getInt("id_func")));
+	        	DBCliente db_cli = new DBCliente();
+	        	pag.setIdCliente(db_cli.buscaCliente(rs.getInt("id_cli")));
             }
             
             return pag;
@@ -134,10 +129,7 @@ public class DBPagamento {
                 func.setIdFunc(rs.getInt("id_func"));
                 pagamento.setIdFunc(db_func.buscaFuncionario(func.getIdFunc()));
                 
-                //Calendar cal = Calendar.getInstance();
-                //Date data = new Date(rs.getDate("data").getTime());
-               //cal.setTime(data);
-                pagamento.setData("");
+                pagamento.setData(rs.getDate("data").toString());
                 
                 pagamento.setTipo(rs.getString("tipo"));
 

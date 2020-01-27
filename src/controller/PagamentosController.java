@@ -132,6 +132,7 @@ public class PagamentosController {
     		func = DBfunc.buscaFuncionario(func.getIdFunc());
     		
     		if(cli != null && func != null & tipoPgmt != null) {
+    			System.out.println(data.getValue().toString());
     			Pagamento pgmt = new Pagamento(data.getValue().toString(), cli,
     					func, tipoPgmt);		
     			if(DBpgmt.realizarPagamento(pgmt)) {
