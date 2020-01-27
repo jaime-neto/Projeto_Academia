@@ -32,7 +32,12 @@ public class LoginController {
 			JOptionPane.showMessageDialog(null, "Ops. Voce esqueceu algum campo em branco.");
 		}
     }
-
+	
+	@FXML
+	void btnCadastrar(ActionEvent event) {
+		application.Main.trocarTela("cadFunc");
+	}
+	
     @FXML
     void btnSair(ActionEvent event) {
     	Platform.exit();

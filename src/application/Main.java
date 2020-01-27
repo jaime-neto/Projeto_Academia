@@ -14,6 +14,7 @@ public class Main extends Application {
 	protected static Scene funcionario;
 	protected static Scene inicial;
 	protected static Scene pgmt;
+	protected static Scene cadFunc;
 	
 	protected static Stage stage;
 	
@@ -27,12 +28,14 @@ public class Main extends Application {
 			Parent telaFunc = FXMLLoader.load(getClass().getResource("/view/Funcionario.fxml"));
 			Parent telaInicial = FXMLLoader.load(getClass().getResource("/view/Inicial.fxml"));
 			Parent telaPgmt = FXMLLoader.load(getClass().getResource("/view/Pagamentos.fxml"));
+			Parent telaCadastroFunc = FXMLLoader.load(getClass().getResource("/view/CadastroFuncionario.fxml")); 
 			
 			login = new Scene(telaLogin, 520, 300);
 			cliente = new Scene(telaCliente, 720, 400);
 			funcionario = new Scene(telaFunc, 720, 400);
 			inicial = new Scene(telaInicial, 520, 300);
 			pgmt = new Scene(telaPgmt, 720, 400);
+			cadFunc = new Scene(telaCadastroFunc, 600,400);
 			
 			primaryStage.setScene(login);
 			primaryStage.show();
@@ -65,6 +68,9 @@ public class Main extends Application {
 			break;
 		case "pgmt":
 			stage.setScene(pgmt);
+			stage.show();
+		case "cadFunc":
+			stage.setScene(cadFunc);
 			stage.show();
 		}
 	}
