@@ -69,9 +69,11 @@ public class Main extends Application {
 		case "pgmt":
 			stage.setScene(pgmt);
 			stage.show();
+			break;
 		case "cadFunc":
 			stage.setScene(cadFunc);
 			stage.show();
+			break;
 		}
 	}
 	
