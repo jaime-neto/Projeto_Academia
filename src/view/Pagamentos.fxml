@@ -40,6 +40,7 @@
                               <MenuItem fx:id="menuItem1" mnemonicParsing="false" onAction="#miPromocional" text="Promocional" />
                           </items>
                         </MenuButton>
+                        <TextField fx:id="valorPagar" alignment="TOP_CENTER" layoutX="178.0" layoutY="256.0" promptText="Valor" />
                      </children>
                   </AnchorPane>
             </content>
@@ -71,6 +72,7 @@
                             <MenuItem mnemonicParsing="false" text="Action 2" />
                           </items>
                         </MenuButton>
+                        <TextField fx:id="valorEditar" alignment="TOP_CENTER" layoutX="95.0" layoutY="231.0" promptText="Valor" />
                      </children>
                   </AnchorPane>
             </content>
@@ -101,13 +103,14 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="484.0" layoutY="24.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
-                        <TableView fx:id="tvPgmtMostra" layoutX="72.0" layoutY="65.0" prefHeight="291.0" prefWidth="583.0">
+                        <TableView fx:id="tvPgmtMostra" layoutY="65.0" prefHeight="291.0" prefWidth="720.0">
                           <columns>
                             <TableColumn fx:id="tcCodepag" prefWidth="58.0" text="Codigo" />
-                            <TableColumn fx:id="tcDataPag" prefWidth="132.0" text="Data" />
-                              <TableColumn fx:id="tcTipoPag" prefWidth="107.0" text="Tipo" />
-                              <TableColumn fx:id="tcFuncionarioPag" prefWidth="119.0" text="Funcionario" />
-                              <TableColumn fx:id="tcCliPag" prefWidth="166.0" text="Cliente" />
+                            <TableColumn fx:id="tcDataPag" prefWidth="115.0" text="Data" />
+                              <TableColumn fx:id="tcTipoPag" prefWidth="98.0" text="Tipo" />
+                              <TableColumn fx:id="tcFuncionarioPag" prefWidth="145.0" text="Funcionario" />
+                              <TableColumn fx:id="tcCliPag" minWidth="0.0" prefWidth="188.0" text="Cliente" />
+                              <TableColumn fx:id="tcValorPag" prefWidth="144.0" text="Valor" />
                           </columns>
                         </TableView>
                         <TextField fx:id="buscaCpf" alignment="TOP_CENTER" layoutX="186.0" layoutY="24.0" prefHeight="20.0" prefWidth="195.0" promptText="Digite o CPF do cliente" />

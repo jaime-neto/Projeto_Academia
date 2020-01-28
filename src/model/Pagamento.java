@@ -6,17 +6,20 @@ public class Pagamento {
 	protected Cliente idCliente;
 	protected Funcionario idFunc;
 	protected String tipo; //Se o pgmt é mensal, semestral ou promocional
+	protected float valor;
 	
 	public Pagamento() {
 	
 	}
 	
-	public Pagamento(String data, Cliente idCliente, Funcionario idFunc, String tipo) {
+	public Pagamento(String data, Cliente idCliente, Funcionario idFunc, String tipo,
+			float valor) {
 		super();
 		this.data = data;
 		this.idCliente = idCliente;
 		this.idFunc = idFunc;
 		this.tipo = tipo;
+		this.valor = valor;
 	}
 	
 	public int getIdPag() {
@@ -73,5 +76,13 @@ public class Pagamento {
 	
 	public String getNomeCli() {
 		return this.idCliente.getNome();
+	}
+
+	public float getValor() {
+		return valor;
+	}
+
+	public void setValor(float valor) {
+		this.valor = valor;
 	}
 }

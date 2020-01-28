@@ -21,7 +21,7 @@ public class DBPagamento {
 	
 	public boolean realizarPagamento(Pagamento pagamento) {
 		PreparedStatement stmt = null;
-        String sql = "insert into pagamento (data, tipo, id_func, id_cli) values (to_date('"+pagamento.getData()+"','yyyy-mm-dd'), '"+pagamento.getTipo()+"', "+pagamento.getIdFunc().getIdFunc()+", "+pagamento.getIdCliente().getIdCliente()+");";
+        String sql = "insert into pagamento (data, tipo, id_func, id_cli, valor) values (to_date('"+pagamento.getData()+"','yyyy-mm-dd'), '"+pagamento.getTipo()+"', "+pagamento.getIdFunc().getIdFunc()+", "+pagamento.getIdCliente().getIdCliente()+", "+pagamento.getValor()+");";
 		
 		try {
             stmt =  con.prepareStatement(sql);         
@@ -127,12 +127,11 @@ public class DBPagamento {
                 
                 Funcionario func = new Funcionario();
                 func.setIdFunc(rs.getInt("id_func"));
+                
                 pagamento.setIdFunc(db_func.buscaFuncionario(func.getIdFunc()));
-                
                 pagamento.setData(rs.getDate("data").toString());
-                
                 pagamento.setTipo(rs.getString("tipo"));
-
+                pagamento.setValor(rs.getFloat("valor"));
                 pagamentos.add(pagamento);
             }
             return(pagamentos);

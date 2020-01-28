@@ -28,6 +28,12 @@ import model.Pagamento;
 public class PagamentosController {
 	
 	@FXML
+    private TextField valorPagar;
+	
+	@FXML
+    private TextField valorEditar;
+	
+	@FXML
 	private TextField buscaCpf;
 
 	@FXML
@@ -80,6 +86,9 @@ public class PagamentosController {
 
 	 @FXML
 	 private TableColumn<Cliente, String> tcCliPag;
+	 
+	 @FXML
+	 private TableColumn<Pagamento, Float> tcValorPag;
 
 	 private ObservableList<Pagamento> pagamentos = FXCollections.observableArrayList();
 	 
@@ -91,6 +100,7 @@ public class PagamentosController {
 		tcTipoPag.setCellValueFactory(new PropertyValueFactory<Pagamento, String>("tipo"));
 		tcFuncionarioPag.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("nomeFunc"));
 		tcCliPag.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nomeCli"));
+		tcValorPag.setCellValueFactory(new PropertyValueFactory<Pagamento, Float>("valor"));
 		tvPgmtMostra.setItems(FXCollections.observableArrayList(pagamentos));
 	}
     
@@ -197,7 +207,7 @@ public class PagamentosController {
     			if(!existeData) {
     				System.out.println(data.getValue().toString());
         			Pagamento pgmt = new Pagamento(data.getValue().toString(), cli,
-        					func, tipoPgmt);		
+        					func, tipoPgmt, Float.parseFloat(valorPagar.getText()));		
         			if(DBpgmt.realizarPagamento(pgmt)) {
         				JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso");
         			}else {
