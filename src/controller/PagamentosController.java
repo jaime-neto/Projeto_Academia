@@ -22,7 +22,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Cliente;
-import model.Endereco;
 import model.Funcionario;
 import model.Pagamento;
 
@@ -167,29 +166,53 @@ public class PagamentosController {
     
     @FXML
     void btnPagar(ActionEvent event) {    	
+    	
+    	Cliente cli = new Cliente();
+		Funcionario func = new Funcionario();
+		
+		DBCliente DBcli = new DBCliente();
+		DBFuncionario DBfunc = new DBFuncionario();
+		DBPagamento DBpgmt = new DBPagamento();
+		DBPagamento DBVerifica = new DBPagamento();
+		List<Pagamento> verificaPagamento;
+
+		
     	try {
-    		Cliente cli = new Cliente();
-    		Funcionario func = new Funcionario();
-    		
-    		DBCliente DBcli = new DBCliente();
-    		DBFuncionario DBfunc = new DBFuncionario();
-    		DBPagamento DBpgmt = new DBPagamento();
     		
     		cli.setIdCliente(Integer.parseInt(codCliPagar.getText()));
     		func.setIdFunc(Integer.parseInt(codFuncPagar.getText()));
+    		
+    		verificaPagamento = DBVerifica.buscarTodosPagamentos(cli.getIdCliente());
+    		
+    		boolean existeData = false;/*Verifica se o pagamento ja foi 
+    									feito de acordo com a data fornecida*/
+    		
+    		if(verificaPagamento != null) {
+    			for(int i=0; i<verificaPagamento.size(); i++) {
+					if(verificaPagamento.get(i).getData().equals(data.getValue().toString())){
+						existeData = true;
+					}
+				}
+    		}
     		
     		cli = DBcli.buscaCliente(cli.getIdCliente());
     		func = DBfunc.buscaFuncionario(func.getIdFunc());
     		
     		if(cli != null && func != null & tipoPgmt != null) {
-    			System.out.println(data.getValue().toString());
-    			Pagamento pgmt = new Pagamento(data.getValue().toString(), cli,
-    					func, tipoPgmt);		
-    			if(DBpgmt.realizarPagamento(pgmt)) {
-    				JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso");
+    			if(!existeData) {
+    				System.out.println(data.getValue().toString());
+        			Pagamento pgmt = new Pagamento(data.getValue().toString(), cli,
+        					func, tipoPgmt);		
+        			if(DBpgmt.realizarPagamento(pgmt)) {
+        				JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso");
+        			}else {
+        				JOptionPane.showMessageDialog(null, "O pagamento não foi realizado.");
+       				}
     			}else {
-    				JOptionPane.showMessageDialog(null, "O pagamento não foi realizado.");
-   				}
+    				JOptionPane.showMessageDialog(null, "O pagamento referente a "
+    						+ "data: "+data.getValue().toString()+" ja foi realizado.");
+    			}
+    			
     		}else {
     			JOptionPane.showMessageDialog(null, "Verifique o codigo do cliente/funcionario e o tipo de pagamento.");
     		}

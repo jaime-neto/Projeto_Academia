@@ -25,7 +25,7 @@ public class DBPagamento {
 		
 		try {
             stmt =  con.prepareStatement(sql);         
-            int result  = stmt.executeUpdate(); //executar o sql r insere no DB
+            int result  = stmt.executeUpdate(); //executar o sql e insere no DB
             return result == 1 ? true: false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
