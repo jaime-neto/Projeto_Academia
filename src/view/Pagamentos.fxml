@@ -48,9 +48,9 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="551.0" layoutY="149.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
-                        <TextField fx:id="codCliEditar" alignment="TOP_CENTER" layoutX="113.0" layoutY="150.0" promptText="Codigo Cliente" />
-                        <MenuButton fx:id="tipo" layoutX="305.0" layoutY="149.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="172.0" text="Tipo">
+                        <Button layoutX="649.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
+                        <TextField fx:id="codCliEditar" alignment="TOP_CENTER" layoutX="137.0" layoutY="153.0" promptText="Codigo Cliente" />
+                        <MenuButton layoutX="329.0" layoutY="152.0" mnemonicParsing="false" onAction="#btnTipoEditarPgmt" prefHeight="26.0" prefWidth="172.0" text="Tipo">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Mensal" />
                             <MenuItem mnemonicParsing="false" text="Semestral" />
@@ -62,15 +62,15 @@
                               <Image url="@../../bin/icons/editarPag.png" />
                            </image>
                         </ImageView>
-                        <TableView fx:id="tvPgmtEdita" layoutX="70.0" layoutY="186.0" prefHeight="172.0" prefWidth="580.0">
-                          <columns>
-                            <TableColumn fx:id="codCliente" prefWidth="75.0" text="Codigo" />
-                            <TableColumn fx:id="nomeCli" prefWidth="233.0" text="Nome" />
-                              <TableColumn fx:id="tipoPgmtCli" prefWidth="140.0" text="Tipo" />
-                              <TableColumn fx:id="tcData" prefWidth="131.0" text="Data" />
-                          </columns>
-                        </TableView>
-                        <Button layoutX="483.0" layoutY="149.0" mnemonicParsing="false" onAction="#btnBuscarEditar" text="Buscar" />
+                        <Button layoutX="521.0" layoutY="152.0" mnemonicParsing="false" onAction="#btnBuscarEditar" text="Buscar" />
+                        <Button layoutX="582.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnEditar" text="Editar" />
+                        <TextField fx:id="codFuncEdita" alignment="TOP_CENTER" layoutX="275.0" layoutY="231.0" promptText="Codigo funcionario" />
+                        <MenuButton layoutX="266.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnTovoTipoEditarPgmt" prefHeight="26.0" prefWidth="173.0" text="Tipo">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </MenuButton>
                      </children>
                   </AnchorPane>
             </content>

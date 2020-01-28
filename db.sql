@@ -35,6 +35,7 @@ create TABLE pagamento (
 	tipo VARCHAR(150) NOT NULL,
 	id_func INT NOT NULL,
 	id_cli INT NOT NULL,
+	valor FLOAT,
 	PRIMARY KEY (id_pag),
 	FOREIGN KEY (id_func) REFERENCES funcionario (id_func),
 	FOREIGN KEY (id_cli) REFERENCES cliente(id_cli)

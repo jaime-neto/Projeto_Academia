@@ -40,6 +40,9 @@ public class PagamentosController {
 	private TextField codCliEditar;
 	
 	@FXML
+    private TextField codFuncEdita;
+	
+	@FXML
 	private DatePicker data;
 
 	@FXML
@@ -55,22 +58,7 @@ public class PagamentosController {
 	private MenuItem menuItem3;
 	
 	@FXML
-	private TableView<Pagamento> tvPgmtEdita;
-	
-	@FXML
     private TableView<Pagamento> tvPgmtMostra;
-
-	@FXML
-	private TableColumn<Cliente, String> codCliente;
-
-	@FXML
-	private TableColumn<Cliente, String> nomeCli;
-
-	@FXML
-	private TableColumn<Pagamento, String> tipoPgmtCli;
-
-	 @FXML
-	 private TableColumn<Pagamento, String> tcData;
 
 	 @FXML
 	 private TextField codPag;
@@ -140,13 +128,23 @@ public class PagamentosController {
     }
     
     @FXML
-    void btnBuscarEditar(ActionEvent event) {
+    void btnTipoEditarPgmt(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnTovoTipoEditarPgmt(ActionEvent event) {
 
     }
     
     @FXML
-    void btnBuscarTodosPag(ActionEvent event) {
+    void btnEditar(ActionEvent event) {
 
+    }
+    
+    @FXML
+    void btnBuscarEditar(ActionEvent event) {
+    	
     }
    
     @FXML
@@ -169,24 +167,21 @@ public class PagamentosController {
     	
     	Cliente cli = new Cliente();
 		Funcionario func = new Funcionario();
-		
 		DBCliente DBcli = new DBCliente();
 		DBFuncionario DBfunc = new DBFuncionario();
 		DBPagamento DBpgmt = new DBPagamento();
 		DBPagamento DBVerifica = new DBPagamento();
 		List<Pagamento> verificaPagamento;
-
 		
     	try {
     		
     		cli.setIdCliente(Integer.parseInt(codCliPagar.getText()));
     		func.setIdFunc(Integer.parseInt(codFuncPagar.getText()));
-    		
+    
     		verificaPagamento = DBVerifica.buscarTodosPagamentos(cli.getIdCliente());
     		
     		boolean existeData = false;/*Verifica se o pagamento ja foi 
     									feito de acordo com a data fornecida*/
-    		
     		if(verificaPagamento != null) {
     			for(int i=0; i<verificaPagamento.size(); i++) {
 					if(verificaPagamento.get(i).getData().equals(data.getValue().toString())){
@@ -212,11 +207,9 @@ public class PagamentosController {
     				JOptionPane.showMessageDialog(null, "O pagamento referente a "
     						+ "data: "+data.getValue().toString()+" ja foi realizado.");
     			}
-    			
     		}else {
     			JOptionPane.showMessageDialog(null, "Verifique o codigo do cliente/funcionario e o tipo de pagamento.");
     		}
-			
 		}catch(Exception ex) {
 			System.err.println(ex.getMessage());
 		}
