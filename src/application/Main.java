@@ -35,7 +35,7 @@ public class Main extends Application {
 			funcionario = new Scene(telaFunc, 720, 400);
 			inicial = new Scene(telaInicial, 520, 300);
 			pgmt = new Scene(telaPgmt, 720, 400);
-			cadFunc = new Scene(telaCadastroFunc, 600,400);
+			cadFunc = new Scene(telaCadastroFunc, 720,400);
 			
 			primaryStage.setScene(login);
 			primaryStage.show();

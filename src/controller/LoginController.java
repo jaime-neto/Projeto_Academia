@@ -17,6 +17,11 @@ public class LoginController {
     @FXML
     private TextField usuario;
  
+    private void limparCampos() {
+		senha.clear();
+		usuario.clear();
+	}
+    
 	@FXML
     void btnEntrar(ActionEvent event) {
 		DBFuncionario db_func = new DBFuncionario();
@@ -31,6 +36,7 @@ public class LoginController {
 		} else {
 			JOptionPane.showMessageDialog(null, "Ops. Voce esqueceu algum campo em branco.");
 		}
+		limparCampos();
     }
 	
 	@FXML
