@@ -3,7 +3,7 @@ package model;
 public class Cliente {
 	private int idCliente;
 	private String cpf;
-	private String nome;
+	private String nomeCli;
 	private Endereco endereco;
 	private String telefone;
 	
@@ -13,7 +13,7 @@ public class Cliente {
 	
 	public Cliente(String cpf, String nome, Endereco endereco, String telefone) {
 		this.cpf = cpf;
-		this.nome = nome;
+		this.nomeCli = nome;
 		this.endereco = endereco;
 		this.telefone = telefone;
 	}
@@ -35,11 +35,11 @@ public class Cliente {
 	}
 	
 	public String getNome() {
-		return nome;
+		return nomeCli;
 	}
 	
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nomeCli = nome;
 	}
 	
 	

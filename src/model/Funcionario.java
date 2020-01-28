@@ -2,7 +2,7 @@ package model;
 
 public class Funcionario {
 	private int idFunc;
-	private String nome;
+	private String nomeFunc;
 	private String usuario;
 	private String senha;
 	private String cpf;
@@ -10,7 +10,7 @@ public class Funcionario {
 	
 	public Funcionario(String nome, String usuario, String senha, String cpf, float salario) {
 		super();
-		this.nome = nome;
+		this.nomeFunc = nome;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.cpf = cpf;
@@ -22,11 +22,11 @@ public class Funcionario {
 	}
 	
 	public String getNome() {
-		return nome;
+		return nomeFunc;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nomeFunc = nome;
 	}
 	
 	public int getIdFunc() {

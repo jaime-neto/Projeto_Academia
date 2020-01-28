@@ -135,13 +135,13 @@ public class DBPagamento {
 
                 pagamentos.add(pagamento);
             }
+            return(pagamentos);
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
+            return(null);
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-		
-		return pagamentos;
 	}
 
 }

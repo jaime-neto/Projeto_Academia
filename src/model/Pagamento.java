@@ -67,4 +67,11 @@ public class Pagamento {
 		return this.idFunc;
 	}
 	
+	public String getNomeFunc() {
+		return this.idFunc.getNome();
+	}
+	
+	public String getNomeCli() {
+		return this.idCliente.getNome();
+	}
 }

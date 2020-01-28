@@ -1,9 +1,13 @@
 package controller;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import DB.DBCliente;
 import DB.DBFuncionario;
 import DB.DBPagamento;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,7 +20,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Cliente;
+import model.Endereco;
 import model.Funcionario;
 import model.Pagamento;
 
@@ -31,6 +37,9 @@ public class PagamentosController {
 	@FXML
 	private TextField codCliPagar;
 
+	@FXML
+	private TextField codCliEditar;
+	
 	@FXML
 	private DatePicker data;
 
@@ -47,19 +56,22 @@ public class PagamentosController {
 	private MenuItem menuItem3;
 	
 	@FXML
-	private TableView<?> tvPgmt;
+	private TableView<Pagamento> tvPgmtEdita;
+	
+	@FXML
+    private TableView<Pagamento> tvPgmtMostra;
 
 	@FXML
-	private TableColumn<?, ?> codCliente;
+	private TableColumn<Cliente, String> codCliente;
 
 	@FXML
-	private TableColumn<?, ?> nomeCli;
+	private TableColumn<Cliente, String> nomeCli;
 
 	@FXML
-	private TableColumn<?, ?> tipoPgmtCli;
+	private TableColumn<Pagamento, String> tipoPgmtCli;
 
 	 @FXML
-	 private TableColumn<?, ?> tcData;
+	 private TableColumn<Pagamento, String> tcData;
 
 	 @FXML
 	 private TextField codPag;
@@ -68,30 +80,68 @@ public class PagamentosController {
 	 private Label statusRemovePgmt;
 
 	 @FXML
-	 private TableColumn<?, ?> tcCodepag;
+	 private TableColumn<Pagamento, String> tcCodepag;
 
 	 @FXML
-	 private TableColumn<?, ?> tcDataPag;
+	 private TableColumn<Pagamento, String> tcDataPag;
 
 	 @FXML
-	 private TableColumn<?, ?> tcTipoPag;
+	 private TableColumn<Pagamento, String> tcTipoPag;
 
 	 @FXML
-	 private TableColumn<?, ?> tcFuncionarioPag;
+	 private TableColumn<Funcionario, String> tcFuncionarioPag;
 
 	 @FXML
-	 private TableColumn<?, ?> tcCliPag;
-	 
+	 private TableColumn<Cliente, String> tcCliPag;
+
+	 private ObservableList<Pagamento> pagamentos = FXCollections.observableArrayList();
 	 
 	private String tipoPgmt = null;
 	 
+	private void initTableMostrar() {
+		tcCodepag.setCellValueFactory(new PropertyValueFactory<Pagamento, String>("idPag"));
+		tcDataPag.setCellValueFactory(new PropertyValueFactory<Pagamento, String>("data"));
+		tcTipoPag.setCellValueFactory(new PropertyValueFactory<Pagamento, String>("tipo"));
+		tcFuncionarioPag.setCellValueFactory(new PropertyValueFactory<Funcionario, String>("nomeFunc"));
+		tcCliPag.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nomeCli"));
+		tvPgmtMostra.setItems(FXCollections.observableArrayList(pagamentos));
+	}
+    
     @FXML
     void btnBuscarPag(ActionEvent event) {
-    	
+    	Pagamento pgmt = new Pagamento();
+		DBPagamento DBpgmt = new DBPagamento();
+		Cliente cli = new Cliente();
+		DBCliente DBcli = new DBCliente();
+		List<Pagamento> listaPgmt;
+		
+		try {
+			cli = DBcli.buscaClienteCpf(buscaCpf.getText());
+			
+			if(cli != null) {
+				pgmt.setIdCliente(cli);
+				
+				listaPgmt = DBpgmt.buscarTodosPagamentos(cli.getIdCliente());
+				if(listaPgmt != null) {	
+					for(int i=0; i<listaPgmt.size(); i++) {
+						pagamentos.add(listaPgmt.get(i));
+						initTableMostrar();
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Nenhum pagamento foi encontado.");
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Nenhum cliente foi encontado.");
+			}
+			
+			
+		}catch(Exception ex) {
+			System.err.println(ex.getMessage());
+		}
     }
     
     @FXML
-    void btnBuscar(ActionEvent event) {
+    void btnBuscarEditar(ActionEvent event) {
 
     }
     

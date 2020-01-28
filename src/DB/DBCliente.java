@@ -120,6 +120,38 @@ public class DBCliente {
 		
 	}
 	
+	public Cliente buscaClienteCpf(String cpf) {
+		Cliente cli = null; 
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from cliente where cpf = ?";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+        	
+        	stmt.setString(1, cpf);
+        	
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	cli = new Cliente();
+            	cli.setIdCliente(rs.getInt("id_cli"));
+            	cli.setNome(rs.getString("nome"));
+            	cli.setCpf(rs.getString("cpf"));
+            	cli.setTelefone(rs.getString("telefone"));
+            	Endereco end = new Endereco();
+            	DBEndereco db_end = new DBEndereco();
+            	end.setIdEndereco(rs.getInt("id_end"));
+            	cli.setEndereco(db_end.buscaEndereco(end));
+            }
+
+            return cli;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
+	}
+	
 	public Cliente buscaCliente(int id_cli) {
 		Cliente cli = null; 
 		ResultSet rs = null;
