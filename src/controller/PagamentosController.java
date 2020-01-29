@@ -230,16 +230,19 @@ public class PagamentosController {
    
     @FXML
     void miMensal(ActionEvent event) {
+    	tipo.setText("Mensal");
     	tipoPgmt = "Mensal";
     }
     
     @FXML
     void miSemestral(ActionEvent event) {
+    	tipo.setText("Semestral");
     	tipoPgmt = "Semestral";
     }
     
     @FXML
     void miPromocional(ActionEvent event) {
+    	tipo.setText("Promocional");
     	tipoPgmt = "Promocional";
     }
     
