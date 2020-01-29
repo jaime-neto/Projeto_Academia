@@ -129,7 +129,6 @@ public class ClienteController {
 		codCliExcluir.clear();
 	}
     
-    
     private void initTable() {
     	tcCodeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("idCliente"));
     	tcNomeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));

@@ -132,7 +132,6 @@ public class FuncionarioController {
 			}else {
 				JOptionPane.showMessageDialog(null, "Funcionario nao encontrado.");
 			}
-			
 		}catch(Exception ex) {
 			System.err.println(ex.getMessage());
 		}
@@ -146,6 +145,8 @@ public class FuncionarioController {
 			
 			if(cpfEditar.getText().isEmpty() || cadNomeEditar.getText().isEmpty() || salarioEditar.getText().isEmpty()
 					|| userEditar.getText().isEmpty() || senhaEditar.getText().isEmpty() ) {
+				JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+			} else {
 				
 				func.setCpf(cpfEditar.getText());
 				func.setNome(cadNomeEditar.getText());
@@ -175,10 +176,6 @@ public class FuncionarioController {
 								+ " voce precisa primeiro buscar um ID valido.");
 					}	
 				}
-				
-				
-			} else {
-				JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
 			}
 			
 		}catch(Exception ex){
@@ -201,8 +198,7 @@ public class FuncionarioController {
 				
 				if(func != null) {
 					JOptionPane.showMessageDialog(null, "Funcionario " + func.getNome()
-					+ " encontrado, altere"
-					+ " somente os dados que deseja.");
+					+ " encontrado, altere somente os dados que deseja.");
 					
 					cpfEditar.setText(func.getCpf());
 					cadNomeEditar.setText(func.getNome());
