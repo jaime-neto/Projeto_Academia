@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
-
 public class Main extends Application {
 
 	protected static Scene login;
@@ -23,6 +22,7 @@ public class Main extends Application {
 		try {
 			Main.stage = primaryStage;
 			
+			/*Carregando todas as tels*/
 			Parent telaLogin = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
 			Parent telaCliente = FXMLLoader.load(getClass().getResource("/view/Cliente.fxml"));
 			Parent telaFunc = FXMLLoader.load(getClass().getResource("/view/Funcionario.fxml"));
@@ -30,6 +30,7 @@ public class Main extends Application {
 			Parent telaPgmt = FXMLLoader.load(getClass().getResource("/view/Pagamentos.fxml"));
 			Parent telaCadastroFunc = FXMLLoader.load(getClass().getResource("/view/CadastroFuncionario.fxml")); 
 			
+			/*Atribuindo as cenas*/
 			login = new Scene(telaLogin, 520, 300);
 			cliente = new Scene(telaCliente, 720, 400);
 			funcionario = new Scene(telaFunc, 720, 400);
@@ -48,6 +49,7 @@ public class Main extends Application {
 		launch(args);
 	}
 	
+	/*Método que troca as telas*/
 	public static void trocarTela(String tela) {
 		switch(tela) {
 		case "login":

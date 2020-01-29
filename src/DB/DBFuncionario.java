@@ -41,8 +41,6 @@ public boolean cadFuncionario(String nome, String cpf, float salario, String usu
 	}
 
 	public Funcionario buscaFuncionarioCpf(String cpf) {
-		
-		String cpfBuscado = null;
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
 		Funcionario func = null;
@@ -225,7 +223,7 @@ public boolean cadFuncionario(String nome, String cpf, float salario, String usu
             	func.setSalario(rs.getFloat("salario"));
             	funcionarios.add(func);
             }
-            
+
             return funcionarios;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
