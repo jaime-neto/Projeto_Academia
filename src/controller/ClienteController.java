@@ -105,6 +105,8 @@ public class ClienteController {
     
     private Endereco endTemp = null;
     
+    private String cpfTemporario = null;
+    
     private void limparCampos() {
     	/*Tela cadastrar*/
     	nomeCad.clear();
@@ -162,28 +164,34 @@ public class ClienteController {
     @FXML
     void btnBuscarEditar(ActionEvent event) {
     	Cliente cli = new Cliente();
-    	cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
     	DBCliente db_cli =  new DBCliente();
     	
     	try {
-    		cli = db_cli.buscaCliente(cli.getIdCliente());
-        	
-        	if(cli != null) {
-        		JOptionPane.showMessageDialog(null, "Cliente " + cli.getNome()
-    			+ " encontrado, altere"
-    			+ " somente os dados que deseja.");
-        		
-        		nomeEdit.setText(cli.getNome());
-        		cpfEdit.setText(cli.getCpf());
-        		telEdit.setText(cli.getTelefone());
-        		ruaEdit.setText(cli.getEndereco().getRua());
-        		bairroEdit.setText(cli.getEndereco().getBairro());
-        		cidadeEdit.setText(cli.getEndereco().getCidade());
-        		
-        		endTemp = cli.getEndereco();
-        	}else {
-        		JOptionPane.showMessageDialog(null, "O cliente não foi encontrado.");
-        	}
+    		
+    		if(codCliEdit.getText().isEmpty()) {
+    			JOptionPane.showMessageDialog(null, "Por favor digite o código do cliente.");
+    		}else {
+    			cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
+    			cli = db_cli.buscaCliente(cli.getIdCliente());
+            	
+            	if(cli != null) {
+            		JOptionPane.showMessageDialog(null, "Cliente " + cli.getNome()
+        			+ " encontrado, altere"
+        			+ " somente os dados que deseja.");
+            		
+            		nomeEdit.setText(cli.getNome());
+            		cpfEdit.setText(cli.getCpf());
+            		cpfTemporario = cpfEdit.getText();
+            		telEdit.setText(cli.getTelefone());
+            		ruaEdit.setText(cli.getEndereco().getRua());
+            		bairroEdit.setText(cli.getEndereco().getBairro());
+            		cidadeEdit.setText(cli.getEndereco().getCidade());
+            		
+            		endTemp = cli.getEndereco();
+            	}else {
+            		JOptionPane.showMessageDialog(null, "O cliente não foi encontrado.");
+            	}
+    		}
     	}catch(Exception ex) {
     		System.err.println(ex.getMessage());
     	}
@@ -192,27 +200,46 @@ public class ClienteController {
     @FXML
     void btnEditarCli(ActionEvent event) {
     	try {
-    		DBEndereco db_end = new DBEndereco();
-    		Endereco end = new Endereco(ruaEdit.getText(),bairroEdit.getText(), cidadeEdit.getText());
-    		end.setIdEndereco(endTemp.getIdEndereco());
-    		db_end.editEndereco(end);
     		
-    		Cliente cli = new Cliente(cpfEdit.getText(), nomeEdit.getText(),end, telEdit.getText());
-			cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
-			
-			DBCliente db_cli = new DBCliente();
-			
-			if(db_cli.editCliente(cli.getIdCliente(), cli)) {
-				JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
-				limparCampos();
-			} else {
-				JOptionPane.showMessageDialog(null, "Problema ao editar Cliente. Tente novamente.");
+    		if(ruaEdit.getText().isEmpty() || bairroEdit.getText().isEmpty() ||
+    				cidadeEdit.getText().isEmpty() || cpfEdit.getText().isEmpty() ||
+    				nomeEdit.getText().isEmpty() || telEdit.getText().isEmpty()){
+    			JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+			}else {
+				DBEndereco db_end = new DBEndereco();
+	    		Endereco end = new Endereco(ruaEdit.getText(), bairroEdit.getText(), cidadeEdit.getText());
+	    		end.setIdEndereco(endTemp.getIdEndereco());
+	    		db_end.editEndereco(end);
+	    		
+	    		Cliente cli = new Cliente(cpfEdit.getText(), nomeEdit.getText(),end, telEdit.getText());
+				cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
+				
+				DBCliente db_cli = new DBCliente();
+				
+				Cliente existeCli = db_cli.buscaClienteCpf(cpfEdit.getText());
+				
+				if(cpfTemporario.equals(cpfEdit.getText())) {
+						if(db_cli.editCliente(cli.getIdCliente(), cli)) {
+							JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
+							limparCampos();
+						} else {
+							JOptionPane.showMessageDialog(null, "Problema ao editar Cliente. Tente novamente.");
+						}
+				}else if(existeCli != null){
+					JOptionPane.showMessageDialog(null, "Já existe um cliente com esse cpf.");
+				}else {
+					if(db_cli.editCliente(cli.getIdCliente(), cli)) {
+						JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
+						limparCampos();
+					} else {
+						JOptionPane.showMessageDialog(null, "Problema ao editar Cliente. Tente novamente.");
+					}
+				}
 			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
     }
-    
 
     @FXML
     void btnExcluir(ActionEvent event) {
@@ -255,15 +282,26 @@ public class ClienteController {
     		end.setIdEndereco(db_end.buscaUltimoEndereco().getIdEndereco());
 			
     		Cliente cli = new Cliente(cpf.getText(), nomeCad.getText(), end, tel.getText());
-			DBCliente db_cli = new DBCliente();
+    		DBCliente db_cli = new DBCliente();
+    		
+    		Cliente existeCli = db_cli.buscaClienteCpf(cpf.getText());
 			
-			if (db_cli.cadCliente(cli.getNome(), cli.getCpf(), cli.getTelefone(), cli.getEndereco().getIdEndereco())) {
-				JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso");
-				limparCampos();
-			} else {
-				JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");
+    		if(nomeCad.getText().isEmpty() || cpf.getText().isEmpty() ||
+    				tel.getText().isEmpty() || rua.getText().isEmpty() ||
+    				cidade.getText().isEmpty() || bairro.getText().isEmpty()){
+    			JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+			}else {
+				if(existeCli == null) {
+	    			if (db_cli.cadCliente(cli.getNome(), cli.getCpf(), cli.getTelefone(), cli.getEndereco().getIdEndereco())) {
+	    				JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso");
+	    				limparCampos();
+	    			} else {
+	    				JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");
+	    			}
+	    		}else {
+	    			JOptionPane.showMessageDialog(null, "Já existe um cliente com esse cpf.");
+	    		}
 			}
-			
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}

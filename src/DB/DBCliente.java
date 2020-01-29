@@ -148,8 +148,7 @@ public class DBCliente {
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
             return null;
-        } 
-		
+        } 	
 	}
 	
 	public Cliente buscaCliente(int id_cli) {
