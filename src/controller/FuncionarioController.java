@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -17,6 +18,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Funcionario;
 
 public class FuncionarioController {
+	
+	@FXML
+	private Label funcAtual;
 	
 	@FXML
     private Button editar;
@@ -91,11 +95,23 @@ public class FuncionarioController {
 	
 	/*Limpar todos os campos*/
 	private void limparCampos() {
+		/*Tela inserir*/
 		cadNome.clear();
 		user.clear();
 		senha.clear();
 		cpf.clear();
 		salario.clear();
+		
+		/*Tela editar*/
+		codFuncEditar.clear();
+		cadNomeEdita.clear();
+		cpfEditar.clear();
+		salarioEditar.clear();
+		senhaEditar.clear();
+		userEditar.clear();
+		
+		/*Tela excluir*/
+		codFuncExcluir.clear();
 	}
 	
 	@FXML
@@ -135,6 +151,7 @@ public class FuncionarioController {
 			
 			if(DBfunc.editFuncionario(func.getIdFunc(),func)) {
 				JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso.");
+				limparCampos();
 			}else {
 				JOptionPane.showMessageDialog(null, "O Funcionario não foi editado,"
 						+ " você precisa selecisa primeiro buscar um ID válido.");

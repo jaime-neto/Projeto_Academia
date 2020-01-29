@@ -106,20 +106,25 @@ public class ClienteController {
     private Endereco endTemp = null;
     
     private void limparCampos() {
-		cpf.clear();
-		bairro.clear();
-		rua.clear();
-		cidade.clear();
-		tel.clear();
-		codCli.clear();
-		nomeCad.clear();
-		codCliEdit.clear();
-		nomeEdit.clear();
-		cpfEdit.clear();
+    	/*Tela cadastrar*/
+    	nomeCad.clear();
+    	cpf.clear();
+    	tel.clear();
+    	rua.clear();
+    	bairro.clear();
+    	cidade.clear();
+    	
+    	/*Tela editar*/
+    	codCliEdit.clear();
+    	cpfEdit.clear();
 		telEdit.clear();
 		ruaEdit.clear();
 		bairroEdit.clear();
 		cidadeEdit.clear();
+		nomeEdit.clear();
+		
+		/*Tela excluir*/
+		codCliExcluir.clear();
 	}
     
     
@@ -225,7 +230,7 @@ public class ClienteController {
         		if(alert.getResult() == ButtonType.YES) {
         			if(db_cli.deleteCliente(cli.getIdCliente())) {        				
         				JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso.");
-        				codCliExcluir.clear();
+        				limparCampos();
         			} else {
         				JOptionPane.showMessageDialog(null, "Ocorreu um problema durante a remocao do Cliente. Tente novamente. Certifique-se que esta inserindo uma ID valido.");
         			}
@@ -254,6 +259,7 @@ public class ClienteController {
 			
 			if (db_cli.cadCliente(cli.getNome(), cli.getCpf(), cli.getTelefone(), cli.getEndereco().getIdEndereco())) {
 				JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso");
+				limparCampos();
 			} else {
 				JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");
 			}
