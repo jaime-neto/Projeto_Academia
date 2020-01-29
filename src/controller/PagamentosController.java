@@ -111,7 +111,11 @@ public class PagamentosController {
 		codPagEditar.clear();
 		valorEditar.clear();
 		codFuncEdita.clear();
-		tipoEditarPgmtNovo.setText("Tipo");;
+		tipoEditarPgmtNovo.setText("Tipo");
+		tipo.setText("Tipo");
+		codFuncPagar.clear();
+		codCliPagar.clear();
+		valorPagar.clear();
 	}
 	
 	private void initTableMostrar() {
@@ -297,11 +301,11 @@ public class PagamentosController {
     		
     		if(cli != null && func != null & tipoPgmt != null) {
     			if(!existeData) {
-    				System.out.println(data.getValue().toString());
         			Pagamento pgmt = new Pagamento(data.getValue().toString(), cli,
         					func, tipoPgmt, Float.parseFloat(valorPagar.getText()));		
         			if(DBpgmt.realizarPagamento(pgmt)) {
         				JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso");
+        				limparCampos();
         			}else {
         				JOptionPane.showMessageDialog(null, "O pagamento não foi realizado.");
        				}
