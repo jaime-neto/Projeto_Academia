@@ -37,20 +37,26 @@ public class CadastroFuncionarioController {
 	void btnSalvar(ActionEvent event) {
 		
 		try {
-			Funcionario func = new Funcionario(cadNome.getText(), user.getText(),
-					senha.getText(), cpf.getText(), Float.parseFloat(salario.getText()));
-			
-			DBFuncionario DBfunc = new DBFuncionario();
-			
-			if(!DBfunc.buscaFuncionarioCpf(cpf.getText())) {
-				if(DBfunc.cadFuncionario(func.getNome(), func.getCpf(),func.getSalario(), func.getUsuario(), func.getSenha())) {
-					JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
+			if(cadNome.getText().isEmpty() || user.getText().isEmpty() || senha.getText().isEmpty() || cpf.getText().isEmpty() || salario.getText().isEmpty()) {				
+				JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+			} else {
+				Funcionario func = new Funcionario(cadNome.getText(), user.getText(),
+						senha.getText(), cpf.getText(), Float.parseFloat(salario.getText()));
+				
+				DBFuncionario DBfunc = new DBFuncionario();
+				
+				if(DBfunc.buscaFuncionarioCpf(cpf.getText()) == null) {
+					if(DBfunc.cadFuncionario(func.getNome(), func.getCpf(),func.getSalario(), func.getUsuario(), func.getSenha())) {
+						
+						JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
+					}else {
+						JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
+					}
+					limparCampos();
 				}else {
-					JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
+					JOptionPane.showMessageDialog(null, "Um funcionario com esse CPF ja existe");
 				}
-				limparCampos();
-			}else {
-				JOptionPane.showMessageDialog(null, "Um funcionario com esse CPF ja existe");
+				
 			}
 		}catch(Exception ex) {
 			System.err.println(ex.getMessage());

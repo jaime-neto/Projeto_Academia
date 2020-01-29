@@ -189,7 +189,7 @@ public class ClienteController {
             		
             		endTemp = cli.getEndereco();
             	}else {
-            		JOptionPane.showMessageDialog(null, "O cliente não foi encontrado.");
+            		JOptionPane.showMessageDialog(null, "O cliente nao foi encontrado.");
             	}
     		}
     	}catch(Exception ex) {

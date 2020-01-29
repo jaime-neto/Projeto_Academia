@@ -40,11 +40,12 @@ public boolean cadFuncionario(String nome, String cpf, float salario, String usu
 		
 	}
 
-	public Boolean buscaFuncionarioCpf(String cpf) {
+	public Funcionario buscaFuncionarioCpf(String cpf) {
 		
 		String cpfBuscado = null;
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
+		Funcionario func = null;
         String sql = "SELECT * from funcionario where cpf = ?";
         
         try {
@@ -54,14 +55,19 @@ public boolean cadFuncionario(String nome, String cpf, float salario, String usu
         	
             rs = stmt.executeQuery();
             while(rs.next()) {
-            	cpfBuscado = rs.getString("cpf");
+            	func = new Funcionario();
+            	func.setCpf(rs.getString("cpf"));
+            	func.setIdFunc(rs.getInt("id_func"));
+            	func.setNome(rs.getString("nome"));
+            	func.setUsuario(rs.getString("usuario"));
+            	func.setSenha(rs.getString("senha"));
+            	func.setSalario(rs.getFloat("salario"));
             }
             
-            if(cpfBuscado != null) return(true);
-            return(false);
+           return func;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
-            return false;
+            return null;
         } 
 	}
 	
