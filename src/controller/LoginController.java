@@ -24,7 +24,7 @@ public class LoginController {
     
 	@FXML
     void btnEntrar(ActionEvent event) {
-		DBFuncionario db_func = new DBFuncionario();
+		/*DBFuncionario db_func = new DBFuncionario();
 		if(!usuario.getText().isEmpty() && !senha.getText().isEmpty()) {			
 			Funcionario func = db_func.loginFunc(usuario.getText(), senha.getText());
 			if(func != null) {			
@@ -36,7 +36,8 @@ public class LoginController {
 		} else {
 			JOptionPane.showMessageDialog(null, "Ops. Voce esqueceu algum campo em branco.");
 		}
-		limparCampos();
+		limparCampos();*/
+		application.Main.trocarTela("inicial");
     }
 	
 	@FXML

@@ -159,23 +159,29 @@ public class ClienteController {
     	Cliente cli = new Cliente();
     	cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
     	DBCliente db_cli =  new DBCliente();
-    	cli = db_cli.buscaCliente(cli.getIdCliente());
     	
-    	if(cli != null) {
-    		JOptionPane.showMessageDialog(null, "Cliente " + cli.getNome()
-			+ " encontrado, altere"
-			+ " somente os dados que deseja.");
-    		
-    		
-    		nomeEdit.setText(cli.getNome());
-    		cpfEdit.setText(cli.getCpf());
-    		telEdit.setText(cli.getTelefone());
-    		ruaEdit.setText(cli.getEndereco().getRua());
-    		bairroEdit.setText(cli.getEndereco().getBairro());
-    		cidadeEdit.setText(cli.getEndereco().getCidade());
-    		
-    		endTemp = cli.getEndereco();
-    	}	
+    	try {
+    		cli = db_cli.buscaCliente(cli.getIdCliente());
+        	
+        	if(cli != null) {
+        		JOptionPane.showMessageDialog(null, "Cliente " + cli.getNome()
+    			+ " encontrado, altere"
+    			+ " somente os dados que deseja.");
+        		
+        		nomeEdit.setText(cli.getNome());
+        		cpfEdit.setText(cli.getCpf());
+        		telEdit.setText(cli.getTelefone());
+        		ruaEdit.setText(cli.getEndereco().getRua());
+        		bairroEdit.setText(cli.getEndereco().getBairro());
+        		cidadeEdit.setText(cli.getEndereco().getCidade());
+        		
+        		endTemp = cli.getEndereco();
+        	}else {
+        		JOptionPane.showMessageDialog(null, "O cliente não foi encontrado.");
+        	}
+    	}catch(Exception ex) {
+    		System.err.println(ex.getMessage());
+    	}
     }
     
     @FXML

@@ -50,29 +50,34 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="649.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnVoltar" text="Voltar" />
-                        <TextField fx:id="codCliEditar" alignment="TOP_CENTER" layoutX="137.0" layoutY="153.0" promptText="Codigo Cliente" />
-                        <MenuButton layoutX="329.0" layoutY="152.0" mnemonicParsing="false" onAction="#btnTipoEditarPgmt" prefHeight="26.0" prefWidth="172.0" text="Tipo">
-                          <items>
-                            <MenuItem mnemonicParsing="false" text="Mensal" />
-                            <MenuItem mnemonicParsing="false" text="Semestral" />
-                              <MenuItem mnemonicParsing="false" text="Promocional" />
-                          </items>
-                        </MenuButton>
+                        <TextField fx:id="codPagEditar" alignment="TOP_CENTER" layoutX="238.0" layoutY="181.0" promptText="Codigo do Pagamento" />
                         <ImageView fitHeight="135.0" fitWidth="136.0" layoutX="293.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../bin/icons/editarPag.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="521.0" layoutY="152.0" mnemonicParsing="false" onAction="#btnBuscarEditar" text="Buscar" />
+                        <Button layoutX="429.0" layoutY="181.0" mnemonicParsing="false" onAction="#btnBuscarEditar" text="Buscar" />
                         <Button layoutX="582.0" layoutY="327.0" mnemonicParsing="false" onAction="#btnEditar" text="Editar" />
-                        <TextField fx:id="codFuncEdita" alignment="TOP_CENTER" layoutX="275.0" layoutY="231.0" promptText="Codigo funcionario" />
-                        <MenuButton layoutX="266.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnTovoTipoEditarPgmt" prefHeight="26.0" prefWidth="173.0" text="Tipo">
+                        <TextField fx:id="codFuncEdita" alignment="TOP_CENTER" layoutX="365.0" layoutY="269.0" promptText="Codigo funcionario" />
+                        <MenuButton fx:id="tipoEditarPgmtNovo" layoutX="364.0" layoutY="305.0" mnemonicParsing="false" onAction="#btnTovoTipoEditarPgmt" prefHeight="26.0" prefWidth="173.0" text="Tipo">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                            <MenuItem mnemonicParsing="false" onAction="#miMensalEditarNovo" text="Mensal" />
+                            <MenuItem mnemonicParsing="false" onAction="#miSemestralEditarNovo" text="Semestral" />
+                              <MenuItem mnemonicParsing="false" onAction="#miPromocionalEditarNovo" text="Promocional" />
                           </items>
                         </MenuButton>
-                        <TextField fx:id="valorEditar" alignment="TOP_CENTER" layoutX="95.0" layoutY="231.0" promptText="Valor" />
+                        <TextField fx:id="valorEditar" alignment="TOP_CENTER" layoutX="184.0" layoutY="269.0" promptText="Valor" />
+                        <Label layoutX="252.0" layoutY="241.0" text="Modificar os novos dados aqui:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dataEditar" layoutX="184.0" layoutY="305.0" prefHeight="26.0" prefWidth="170.0" promptText="Data" />
+                        <Label layoutX="252.0" layoutY="157.0" text="Primeiro busque o pagamento:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>

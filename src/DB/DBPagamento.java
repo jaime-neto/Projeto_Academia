@@ -38,16 +38,14 @@ public class DBPagamento {
 	public boolean editPagamento(int id_pag, Pagamento pagamento) {
 		
 		PreparedStatement stmt = null;
-        String sql = "UPDATE pagamento SET id_cli = ?, tipo = ? WHERE id_pag = ?" ;
+        String sql = "UPDATE pagamento SET id_func = "+pagamento.getIdFunc().getIdFunc()+", "
+        		+ "tipo = "+"'"+pagamento.getTipo()+"'"+", "+ "valor = "+pagamento.getValor()+", "
+        				+ "data = "+pagamento.getData()+" WHERE id_pag = "+id_pag+";";
         
         try {
             stmt =  con.prepareStatement(sql);
-
-            stmt.setLong(1, pagamento.getIdCliente().getIdCliente());
-            stmt.setString(2, pagamento.getTipo());
-            stmt.setLong(3, id_pag);
-
-            int result = stmt.executeUpdate(); //executar o sql
+            
+            int result  = stmt.executeUpdate(); //executar o sql
             return result == 1 ? true: false;
         } catch (SQLException ex) {
             System.err.println(ex.getLocalizedMessage());
@@ -74,6 +72,47 @@ public class DBPagamento {
             ConnectionFactory.closeConnection((Connection) con, stmt);
         }
         
+	}
+	
+	public Pagamento buscaPagamento(int id_pgmt) {
+		Cliente cli = null;
+		DBCliente db_cli = new DBCliente();
+		
+		Funcionario func = null;
+		DBFuncionario db_func = new DBFuncionario();
+		
+		Pagamento pgmt = null;
+		
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+        String sql = "SELECT * from pagamento where id_pag = ?";
+        
+        try {
+        	stmt = con.prepareStatement(sql);
+        	
+        	stmt.setInt(1, id_pgmt);
+        	
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+            	pgmt = new Pagamento();
+            	pgmt.setIdPag(rs.getInt("id_pag"));
+            	pgmt.setData(rs.getString("data"));
+            	pgmt.setTipo(rs.getString("tipo"));
+            	pgmt.setValor(rs.getFloat("valor"));
+            	
+            	func = db_func.buscaFuncionario(rs.getInt("id_func"));
+            	pgmt.setIdFunc(func);
+            	
+            	cli = db_cli.buscaCliente(rs.getInt("id_cli"));
+            	pgmt.setIdCliente(cli);
+            }
+
+            return pgmt;
+        } catch (SQLException ex) {
+            System.err.println(ex.getLocalizedMessage());
+            return null;
+        } 
+		
 	}
 	
 	public Pagamento buscaUltimoPagamento() {

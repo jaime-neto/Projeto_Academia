@@ -22,6 +22,12 @@ public class Pagamento {
 		this.valor = valor;
 	}
 	
+	public Pagamento(String data, String tipo, float valor) {
+		this.data = data;
+		this.tipo = tipo;
+		this.valor = valor;
+	}
+	
 	public int getIdPag() {
 		return idPag;
 	}

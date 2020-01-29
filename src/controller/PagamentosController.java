@@ -43,16 +43,25 @@ public class PagamentosController {
 	private TextField codCliPagar;
 
 	@FXML
-	private TextField codCliEditar;
+	private TextField codPagEditar;
 	
 	@FXML
     private TextField codFuncEdita;
 	
 	@FXML
 	private DatePicker data;
+	
+	@FXML
+	private DatePicker dataEditar;
 
 	@FXML
 	private MenuButton tipo;
+	
+	@FXML
+    private MenuButton tipoEditarPgmt;
+	
+	@FXML
+    private MenuButton tipoEditarPgmtNovo;
 	    
 	@FXML
 	private MenuItem menuItem1;
@@ -93,7 +102,18 @@ public class PagamentosController {
 	 private ObservableList<Pagamento> pagamentos = FXCollections.observableArrayList();
 	 
 	private String tipoPgmt = null;
-	 
+	
+	private String tipoPgmtEditarNovo = null;	
+	
+	private int id_pagamento = 0;;
+	
+	private void limparCampos() {
+		codPagEditar.clear();
+		valorEditar.clear();
+		codFuncEdita.clear();
+		tipoEditarPgmtNovo.setText("Tipo");;
+	}
+	
 	private void initTableMostrar() {
 		tcCodepag.setCellValueFactory(new PropertyValueFactory<Pagamento, String>("idPag"));
 		tcDataPag.setCellValueFactory(new PropertyValueFactory<Pagamento, String>("data"));
@@ -139,22 +159,73 @@ public class PagamentosController {
     
     @FXML
     void btnTipoEditarPgmt(ActionEvent event) {
-
+    	
     }
 
     @FXML
     void btnTovoTipoEditarPgmt(ActionEvent event) {
-
-    }
-    
-    @FXML
-    void btnEditar(ActionEvent event) {
-
+    	
     }
     
     @FXML
     void btnBuscarEditar(ActionEvent event) {
+    	Pagamento pgmt = new Pagamento();
+    	DBPagamento db_pgmt =  new DBPagamento();
     	
+    	try {
+    		pgmt = db_pgmt.buscaPagamento(Integer.parseInt(codPagEditar.getText()));
+    		
+        	if(pgmt != null) {
+        		id_pagamento = pgmt.getIdPag();
+        		JOptionPane.showMessageDialog(null, "Pagamento do cliente " + pgmt.getNomeCli()
+    			+ " encontrado, altere"
+    			+ " somente os dados que deseja.");
+        		
+        		codFuncEdita.setText(String.valueOf(pgmt.getFunc().getIdFunc()));
+        		valorEditar.setText(String.valueOf(pgmt.getValor()));
+        		tipoEditarPgmtNovo.setText(pgmt.getTipo());
+        	}else {
+        		JOptionPane.showMessageDialog(null, "O pagamento não foi encontrado.");
+        	}
+    	}catch(Exception ex) {
+    		System.err.println(ex.getMessage());
+    	}
+    }
+    
+    @FXML
+    void btnEditar(ActionEvent event) {
+    	DBPagamento db_pgmt = new DBPagamento();
+    	
+    	Funcionario func = new Funcionario();
+    	DBFuncionario db_func = new DBFuncionario();
+    	
+    	if(id_pagamento == 0) {
+    		JOptionPane.showMessageDialog(null, "Primeiro você precisa buscar um pagamento"
+    				+ " para depois tentá-lo editar.");
+    	}
+    	
+    	try {
+    		Pagamento pgmt = new Pagamento("'"+dataEditar.getValue().toString()+"'", 
+    				tipoEditarPgmtNovo.getText(), Float.parseFloat(valorEditar.getText()));
+    		func = db_func.buscaFuncionario(Integer.parseInt(codFuncEdita.getText()));
+    		
+    		if(func != null && id_pagamento != 0) {
+    			pgmt.setIdPag(id_pagamento);
+    			pgmt.setIdFunc(func);
+    			boolean pagar = db_pgmt.editPagamento(id_pagamento, pgmt);
+    		
+    			if(pagar == true) {
+    				JOptionPane.showMessageDialog(null, "Pagamento editado com sucesso.");
+    				limparCampos();
+    			} else {
+    				JOptionPane.showMessageDialog(null, "Problema ao editar Pagamento. Tente novamente.");
+    			}
+    		}else {
+    			JOptionPane.showMessageDialog(null, "Funcionario não existe.");
+    		}
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+		}
     }
    
     @FXML
@@ -170,6 +241,24 @@ public class PagamentosController {
     @FXML
     void miPromocional(ActionEvent event) {
     	tipoPgmt = "Promocional";
+    }
+    
+    @FXML
+    void miSemestralEditarNovo(ActionEvent event) {
+    	tipoPgmtEditarNovo = "Semestral";
+    	tipoEditarPgmtNovo.setText("Semestral");
+    }
+    
+    @FXML
+    void miPromocionalEditarNovo(ActionEvent event) {
+    	tipoPgmtEditarNovo = "Promocional";
+    	tipoEditarPgmtNovo.setText("Promocional");
+    }
+    
+    @FXML
+    void miMensalEditarNovo(ActionEvent event) {
+    	tipoPgmtEditarNovo = "Mensal";
+    	tipoEditarPgmtNovo.setText("Mensal");
     }
     
     @FXML
