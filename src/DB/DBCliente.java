@@ -17,7 +17,7 @@ public class DBCliente {
 		con = (Connection) ConnectionFactory.getConnection();
 	}
 	
-	public boolean cadCliente(String nome, String cpf, String telefone, int id_end) {
+	public boolean cadCliente(String nome, String cpf, int telefone, int id_end) {
 		
 		PreparedStatement stmt = null;
         String sql = "INSERT INTO cliente (nome ,cpf,telefone, id_end) VALUES (?,?,?,?)";
@@ -26,7 +26,7 @@ public class DBCliente {
 
             stmt.setString(1, nome);
             stmt.setString(2, cpf);
-            stmt.setString(3, telefone);
+            stmt.setInt(3, telefone);
             stmt.setInt(4, id_end);
             
             int result = stmt.executeUpdate(); //executar o sql r insere no DB
@@ -55,7 +55,7 @@ public class DBCliente {
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getCpf());
             stmt.setInt(3, cliente.getEndereco().getIdEndereco());
-            stmt.setString(4, cliente.getTelefone());
+            stmt.setInt(4, cliente.getTelefone());
             
             stmt.setLong(5, id_cli);
 
@@ -104,7 +104,7 @@ public class DBCliente {
             	cli.setIdCliente(rs.getInt("id_cli"));
             	cli.setNome(rs.getString("nome"));
             	cli.setCpf(rs.getString("cpf"));
-            	cli.setTelefone(rs.getString("telefone"));
+            	cli.setTelefone(rs.getInt("telefone"));
             	Endereco end = new Endereco();
             	DBEndereco db_end = new DBEndereco();
             	end.setIdEndereco(rs.getInt("id_end"));
@@ -137,7 +137,7 @@ public class DBCliente {
             	cli.setIdCliente(rs.getInt("id_cli"));
             	cli.setNome(rs.getString("nome"));
             	cli.setCpf(rs.getString("cpf"));
-            	cli.setTelefone(rs.getString("telefone"));
+            	cli.setTelefone(rs.getInt("telefone"));
             	Endereco end = new Endereco();
             	DBEndereco db_end = new DBEndereco();
             	end.setIdEndereco(rs.getInt("id_end"));
@@ -168,7 +168,7 @@ public class DBCliente {
             	cli.setIdCliente(rs.getInt("id_cli"));
             	cli.setNome(rs.getString("nome"));
             	cli.setCpf(rs.getString("cpf"));
-            	cli.setTelefone(rs.getString("telefone"));
+            	cli.setTelefone(rs.getInt("telefone"));
             	Endereco end = new Endereco();
             	DBEndereco db_end = new DBEndereco();
             	end.setIdEndereco(rs.getInt("id_end"));
@@ -197,7 +197,7 @@ public class DBCliente {
             	cli.setIdCliente(rs.getInt("id_cli"));
             	cli.setNome(rs.getString("nome"));
             	cli.setCpf(rs.getString("cpf"));
-            	cli.setTelefone(rs.getString("telefone"));
+            	cli.setTelefone(rs.getInt("telefone"));
             	
             	Endereco end = new Endereco();
             	DBEndereco bd_end = new DBEndereco();

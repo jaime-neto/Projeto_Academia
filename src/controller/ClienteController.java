@@ -88,7 +88,7 @@ public class ClienteController {
 	private TableColumn<Cliente, String> tcNomeCli;
     
     @FXML
-	private TableColumn<Cliente, String> tcTelCli;
+	private TableColumn<Cliente, Integer> tcTelCli;
     
     @FXML
 	private TableColumn<Cliente, String> tcCpfCli;
@@ -133,7 +133,7 @@ public class ClienteController {
     private void initTable() {
     	tcCodeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("idCliente"));
     	tcNomeCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));
-    	tcTelCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone"));
+    	tcTelCli.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("telefone"));
     	tcCpfCli.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpf"));
     	tcRuaCli.setCellValueFactory(new PropertyValueFactory<Endereco, String>("rua"));
     	tcBairroCli.setCellValueFactory(new PropertyValueFactory<Endereco, String>("bairro"));
@@ -182,7 +182,7 @@ public class ClienteController {
             		nomeEdit.setText(cli.getNome());
             		cpfEdit.setText(cli.getCpf());
             		cpfTemporario = cpfEdit.getText();
-            		telEdit.setText(cli.getTelefone());
+            		telEdit.setText(String.valueOf(cli.getTelefone()));
             		ruaEdit.setText(cli.getEndereco().getRua());
             		bairroEdit.setText(cli.getEndereco().getBairro());
             		cidadeEdit.setText(cli.getEndereco().getCidade());
@@ -211,7 +211,7 @@ public class ClienteController {
 	    		end.setIdEndereco(endTemp.getIdEndereco());
 	    		db_end.editEndereco(end);
 	    		
-	    		Cliente cli = new Cliente(cpfEdit.getText(), nomeEdit.getText(),end, telEdit.getText());
+	    		Cliente cli = new Cliente(cpfEdit.getText(), nomeEdit.getText(),end, Integer.parseInt(telEdit.getText()));
 				cli.setIdCliente(Integer.parseInt(codCliEdit.getText()));
 				
 				DBCliente db_cli = new DBCliente();
@@ -296,7 +296,7 @@ public class ClienteController {
        			JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
     		}else {
    				if(cpfValido.isCPF(cpf.getText())) {
-   					Cliente cli = new Cliente(cpf.getText(), nomeCad.getText(), end, tel.getText());
+   					Cliente cli = new Cliente(cpf.getText(), nomeCad.getText(), end, Integer.parseInt(tel.getText()));
     	        	DBCliente db_cli = new DBCliente();
     	        		
     	        	Cliente existeCli = db_cli.buscaClienteCpf(cpf.getText());

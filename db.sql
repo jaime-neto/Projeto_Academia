@@ -12,7 +12,7 @@ create table cliente (
 	id_cli SERIAL,
   	nome VARCHAR(150) NOT NULL,
   	cpf VARCHAR(12) NOT NULL,
-	telefone VARCHAR(12) NOT NULL,
+	telefone INTEGER NOT NULL,
   	id_end INT NOT NULL,
   	PRIMARY KEY (id_cli),
   	FOREIGN KEY (id_end) REFERENCES endereco (id_end)

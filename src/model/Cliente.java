@@ -5,13 +5,13 @@ public class Cliente {
 	private String cpf;
 	private String nomeCli;
 	private Endereco endereco;
-	private String telefone;
+	private int telefone;
 	
 	public Cliente() {
 		
 	}
 	
-	public Cliente(String cpf, String nome, Endereco endereco, String telefone) {
+	public Cliente(String cpf, String nome, Endereco endereco, int telefone) {
 		this.cpf = cpf;
 		this.nomeCli = nome;
 		this.endereco = endereco;
@@ -51,11 +51,11 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public String getTelefone() {
+	public int getTelefone() {
 		return telefone;
 	}
 	
-	public void setTelefone(String telefone) {
+	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
 	

@@ -10,11 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import DB.DBCliente;
 import DB.DBEndereco;
-import DB.DBPagamento;
 import model.Cliente;
 import model.Endereco;
-import model.Funcionario;
-import model.Pagamento;
 
 class DBClienteTest {
 	DBCliente db_cli;
@@ -29,7 +26,7 @@ class DBClienteTest {
 		Cliente cliMock = new Cliente();
 		DBEndereco db_endMock = new DBEndereco();
 		cliMock.setNome("Bruno");
-		cliMock.setTelefone("998785855");
+		cliMock.setTelefone(998785855);
 		cliMock.setCpf("70318274426");
 		Endereco endMock = new Endereco();
 		endMock.setIdEndereco(db_endMock.buscaUltimoEndereco().getIdEndereco());
@@ -43,7 +40,7 @@ class DBClienteTest {
 		db_cli = new DBCliente();
 		cli = new Cliente();
 		cli.setNome("Bruno");
-		cli.setTelefone("998785855");
+		cli.setTelefone(998785855);
 		cli.setCpf("70318274426");
 		end = new Endereco();
 		end.setIdEndereco(db_end.buscaUltimoEndereco().getIdEndereco());
