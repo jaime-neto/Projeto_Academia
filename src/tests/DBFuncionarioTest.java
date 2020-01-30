@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import DB.DBFuncionario;
-import model.Endereco;
 import model.Funcionario;
 
 class DBFuncionarioTest {
