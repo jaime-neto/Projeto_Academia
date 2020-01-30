@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Funcionario;
+import model.ValidaCpf;
 
 public class FuncionarioController {
 	
@@ -157,24 +158,30 @@ public class FuncionarioController {
 
 				Funcionario existeFunc = DBfunc.buscaFuncionarioCpf(cpfEditar.getText());
 				
-				if(cpfTemp.equals(cpfEditar.getText())) {					
-					if(DBfunc.editFuncionario(func.getIdFunc(),func)) {
-						JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso.");
-						limparCampos();
-					}else {
-						JOptionPane.showMessageDialog(null, "O Funcionario nao foi editado,"
-								+ " voce precisa primeiro buscar um ID valido.");
+				ValidaCpf cpfValido = new ValidaCpf();
+				
+				if(cpfValido.isCPF(cpfEditar.getText())) {
+					if(cpfTemp.equals(cpfEditar.getText())) {					
+						if(DBfunc.editFuncionario(func.getIdFunc(),func)) {
+							JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso.");
+							limparCampos();
+						}else {
+							JOptionPane.showMessageDialog(null, "O Funcionario nao foi editado,"
+									+ " voce precisa primeiro buscar um ID valido.");
+						}
+					} else if(existeFunc != null) {
+						JOptionPane.showMessageDialog(null, "Ja existe um funcionario com esse cpf.");
+					} else {
+						if(DBfunc.editFuncionario(func.getIdFunc(),func)) {
+							JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso.");
+							limparCampos();
+						}else {
+							JOptionPane.showMessageDialog(null, "O Funcionario nao foi editado,"
+									+ " voce precisa primeiro buscar um ID valido.");
+						}	
 					}
-				} else if(existeFunc != null) {
-					JOptionPane.showMessageDialog(null, "Ja existe um funcionario com esse cpf.");
-				} else {
-					if(DBfunc.editFuncionario(func.getIdFunc(),func)) {
-						JOptionPane.showMessageDialog(null, "Funcionario editado com sucesso.");
-						limparCampos();
-					}else {
-						JOptionPane.showMessageDialog(null, "O Funcionario nao foi editado,"
-								+ " voce precisa primeiro buscar um ID valido.");
-					}	
+				}else {
+					JOptionPane.showMessageDialog(null, "Você precisa inserir um CPF válido.");
 				}
 			}
 			
@@ -262,25 +269,31 @@ public class FuncionarioController {
 
 	@FXML
 	void btnSalvar(ActionEvent event) {
+		ValidaCpf cpfValido = new ValidaCpf();
 		
 		try {
 			if(cadNome.getText().isEmpty() || user.getText().isEmpty() || senha.getText().isEmpty() || cpf.getText().isEmpty() || salario.getText().isEmpty()) {				
 				JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
-			} else { 				
-				Funcionario func = new Funcionario(cadNome.getText(), user.getText(),
-						senha.getText(), cpf.getText(), Float.parseFloat(salario.getText()));
+			} else { 		
 				
-				DBFuncionario DBfunc = new DBFuncionario();
-				
-				if(DBfunc.buscaFuncionarioCpf(cpf.getText()) == null) {
-					if(DBfunc.cadFuncionario(func.getNome(), func.getCpf(),func.getSalario(), func.getUsuario(), func.getSenha())) {
-						JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
+				if(cpfValido.isCPF(cpf.getText())) {
+					Funcionario func = new Funcionario(cadNome.getText(), user.getText(),
+							senha.getText(), cpf.getText(), Float.parseFloat(salario.getText()));
+					
+					DBFuncionario DBfunc = new DBFuncionario();
+					
+					if(DBfunc.buscaFuncionarioCpf(cpf.getText()) == null) {
+						if(DBfunc.cadFuncionario(func.getNome(), func.getCpf(),func.getSalario(), func.getUsuario(), func.getSenha())) {
+							JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
+						}else {
+							JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
+						}
+						limparCampos();
 					}else {
-						JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
+						JOptionPane.showMessageDialog(null, "Um funcionario com esse CPF ja existe");
 					}
-					limparCampos();
 				}else {
-					JOptionPane.showMessageDialog(null, "Um funcionario com esse CPF ja existe");
+					JOptionPane.showMessageDialog(null, "Você precisa inserir um CPF válido.");
 				}
 			}
 		}catch(Exception ex) {

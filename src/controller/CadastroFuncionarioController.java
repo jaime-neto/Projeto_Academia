@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import model.Funcionario;
+import model.ValidaCpf;
 
 public class CadastroFuncionarioController {
 	@FXML
@@ -45,18 +46,22 @@ public class CadastroFuncionarioController {
 				
 				DBFuncionario DBfunc = new DBFuncionario();
 				
-				if(DBfunc.buscaFuncionarioCpf(cpf.getText()) == null) {
-					if(DBfunc.cadFuncionario(func.getNome(), func.getCpf(),func.getSalario(), func.getUsuario(), func.getSenha())) {
-						
-						JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
+				ValidaCpf cpfValido = new ValidaCpf();
+				if(cpfValido.isCPF(cpf.getText())) {
+					if(DBfunc.buscaFuncionarioCpf(cpf.getText()) == null) {
+						if(DBfunc.cadFuncionario(func.getNome(), func.getCpf(),func.getSalario(), func.getUsuario(), func.getSenha())) {
+							
+							JOptionPane.showMessageDialog(null, "Funcionario inserido com sucesso");
+						}else {
+							JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
+						}
+						limparCampos();
 					}else {
-						JOptionPane.showMessageDialog(null, "Funcionario nao foi inserido.");
+						JOptionPane.showMessageDialog(null, "Um funcionario com esse CPF ja existe");
 					}
-					limparCampos();
 				}else {
-					JOptionPane.showMessageDialog(null, "Um funcionario com esse CPF ja existe");
+					JOptionPane.showMessageDialog(null, "Você precisa inserir um CPF válido.");
 				}
-				
 			}
 		}catch(Exception ex) {
 			System.err.println(ex.getMessage());
