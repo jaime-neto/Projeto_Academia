@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Cliente;
 import model.Endereco;
+import model.ValidaCpf;
 
 public class ClienteController {
 	
@@ -217,22 +218,29 @@ public class ClienteController {
 				
 				Cliente existeCli = db_cli.buscaClienteCpf(cpfEdit.getText());
 				
-				if(cpfTemporario.equals(cpfEdit.getText())) {
+				ValidaCpf cpfValido = new ValidaCpf();
+				
+				if(cpfValido.isCPF(cpfEdit.getText())) {
+				
+					if(cpfTemporario.equals(cpfEdit.getText())) {
 						if(db_cli.editCliente(cli.getIdCliente(), cli)) {
 							JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
 							limparCampos();
 						} else {
 							JOptionPane.showMessageDialog(null, "Problema ao editar Cliente. Tente novamente.");
 						}
-				}else if(existeCli != null){
-					JOptionPane.showMessageDialog(null, "Já existe um cliente com esse cpf.");
-				}else {
-					if(db_cli.editCliente(cli.getIdCliente(), cli)) {
-						JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
-						limparCampos();
-					} else {
-						JOptionPane.showMessageDialog(null, "Problema ao editar Cliente. Tente novamente.");
+					}else if(existeCli != null){
+						JOptionPane.showMessageDialog(null, "Já existe um cliente com esse cpf.");
+					}else {
+						if(db_cli.editCliente(cli.getIdCliente(), cli)) {
+							JOptionPane.showMessageDialog(null, "Cliente editado com sucesso.");
+							limparCampos();
+						} else {
+							JOptionPane.showMessageDialog(null, "Problema ao editar Cliente. Tente novamente.");
+						}
 					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Você precisa inserir um CPF válido.");
 				}
 			}
 		} catch (Exception e) {
@@ -280,27 +288,33 @@ public class ClienteController {
     		db_end.cadEndereco(end);
     		end.setIdEndereco(db_end.buscaUltimoEndereco().getIdEndereco());
 			
-    		Cliente cli = new Cliente(cpf.getText(), nomeCad.getText(), end, tel.getText());
-    		DBCliente db_cli = new DBCliente();
+    		ValidaCpf cpfValido = new ValidaCpf();
+    			
+        	if(nomeCad.getText().isEmpty() || cpf.getText().isEmpty() ||
+        			tel.getText().isEmpty() || rua.getText().isEmpty() ||
+       				cidade.getText().isEmpty() || bairro.getText().isEmpty()){
+       			JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+    		}else {
+   				if(cpfValido.isCPF(cpf.getText())) {
+   					Cliente cli = new Cliente(cpf.getText(), nomeCad.getText(), end, tel.getText());
+    	        	DBCliente db_cli = new DBCliente();
+    	        		
+    	        	Cliente existeCli = db_cli.buscaClienteCpf(cpf.getText());
+    				if(existeCli == null) {
+    					if (db_cli.cadCliente(cli.getNome(), cli.getCpf(), cli.getTelefone(), cli.getEndereco().getIdEndereco())) {
+    						JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso");
+    						limparCampos();
+    					} else {
+    						JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");
+    					}
+    				}else {
+    					JOptionPane.showMessageDialog(null, "Já existe um cliente com esse cpf.");
+    				}	
+    			}else {
+    	    		JOptionPane.showMessageDialog(null, "Você precisa inserir um CPF válido.");
+    	   		}
+    		}
     		
-    		Cliente existeCli = db_cli.buscaClienteCpf(cpf.getText());
-			
-    		if(nomeCad.getText().isEmpty() || cpf.getText().isEmpty() ||
-    				tel.getText().isEmpty() || rua.getText().isEmpty() ||
-    				cidade.getText().isEmpty() || bairro.getText().isEmpty()){
-    			JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
-			}else {
-				if(existeCli == null) {
-	    			if (db_cli.cadCliente(cli.getNome(), cli.getCpf(), cli.getTelefone(), cli.getEndereco().getIdEndereco())) {
-	    				JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso");
-	    				limparCampos();
-	    			} else {
-	    				JOptionPane.showMessageDialog(null, "Cliente nao foi inserido.");
-	    			}
-	    		}else {
-	    			JOptionPane.showMessageDialog(null, "Já existe um cliente com esse cpf.");
-	    		}
-			}
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}
