@@ -40,8 +40,7 @@ public class DBPagamento {
 		PreparedStatement stmt = null;
         String sql = "UPDATE pagamento SET id_func = "+pagamento.getIdFunc().getIdFunc()+", "
         		+ "tipo = "+"'"+pagamento.getTipo()+"'"+", "+ "valor = "+pagamento.getValor()+", "
-        				+ "data = "+pagamento.getData()+" WHERE id_pag = "+id_pag+";";
-        
+        				+ "data = '"+pagamento.getData()+"' WHERE id_pag = "+id_pag+";";
         try {
             stmt =  con.prepareStatement(sql);
             

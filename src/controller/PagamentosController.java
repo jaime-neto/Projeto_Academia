@@ -209,7 +209,7 @@ public class PagamentosController {
     	}
     	
     	try {
-    		Pagamento pgmt = new Pagamento("'"+dataEditar.getValue().toString()+"'", 
+    		Pagamento pgmt = new Pagamento(""+dataEditar.getValue().toString()+"", 
     				tipoEditarPgmtNovo.getText(), Float.parseFloat(valorEditar.getText()));
     		func = db_func.buscaFuncionario(Integer.parseInt(codFuncEdita.getText()));
     		
